@@ -1071,6 +1071,49 @@
             }
         }
 
+        // --- DASHBOARD LOGIC (Re-implemented) ---
+
+        function openDashboard() {
+            // Hide everything
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('app-container').style.display = 'none';
+            document.getElementById('info-screen').style.display = 'none';
+
+            // Show Dashboard
+            document.getElementById('dashboard-screen').style.display = 'block';
+
+            // Update Dashboard Data
+            if (activeId) {
+                const s = students.find(x => x.id === activeId);
+                if (s) updateDashboardUI(s);
+            }
+        }
+
+        function launchApp(appId) {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('app-container').style.display = 'block';
+
+            const iframeMate = document.getElementById('iframe-mate');
+            const iframeLecto = document.getElementById('iframe-lecto');
+
+            if (appId === 'mate') {
+                iframeMate.style.display = 'block';
+                iframeLecto.style.display = 'none';
+            } else {
+                iframeMate.style.display = 'none';
+                iframeLecto.style.display = 'block';
+            }
+
+            // Send init
+            const s = students.find(x => x.id === activeId);
+            const target = appId === 'mate' ? iframeMate : iframeLecto;
+            target.classList.add('active');
+            target.contentWindow.postMessage({ type: 'INIT_USER', user: s }, '*');
+
+            // Update current app tracking
+            currentApp = appId;
+        }
+
         // --- DASHBOARD RENDER LOGIC ---
 
         function updateDashboardUI(s) {
