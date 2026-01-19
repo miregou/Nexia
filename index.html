@@ -1051,7 +1051,11 @@
             // Populate badge
             document.getElementById('badge-name').innerText = s.name;
             document.getElementById('badge-avatar').innerText = s.avatar;
-            document.getElementById('start-screen').classList.add('hidden'); // Hide start screen directly
+
+            // FORCE HIDE START SCREEN
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('start-screen').style.display = 'none';
+
             document.getElementById('turn-bar').classList.remove('hidden');
 
             // Go to Dashboard
