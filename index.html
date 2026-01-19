@@ -4,183 +4,1260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexia: Mates y Letras</title>
+    <title>Nexia: Mates y Letras - Pack Educativo Profesional</title>
     <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #ec4899;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #f8fafc;
+            --header-bg: #fff;
+            --text: #1e293b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 5px;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .tab-btn {
+            border: none;
+            padding: 8px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            background: transparent;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--text);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .turn-bar {
+            display: flex;
+            gap: 8px;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 30px;
+        }
+
+        .turn-avatar {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
         }
 
-        .container {
+        .turn-avatar.active {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .icon-btn {
             background: white;
-            border-radius: 30px;
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-        }
-
-        .logo {
-            width: 120px;
-            display: block;
-            margin: 0 auto 20px;
-        }
-
-        h1 {
-            color: #1e293b;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .subtitle {
-            color: #64748b;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            background: #f1f5f9;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: bold;
+            border: 1px solid #e2e8f0;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 8px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
             color: #475569;
-            margin-bottom: 15px;
         }
 
-        .cards {
+        .icon-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #eff6ff;
+            padding: 4px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 1px solid #dbeafe;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        iframe.active {
+            display: block;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 700px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats Styles */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .card {
-            border: 2px solid #e2e8f0;
+        .stat-card {
+            background: #f8fafc;
+            padding: 1rem;
             border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
         }
 
-        .card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-3px);
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
-        .card h3 {
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-evolution {
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        .evo-up {
+            color: var(--success);
+        }
+
+        .evo-down {
+            color: var(--error);
+        }
+
+        .evo-neutral {
+            color: var(--warning);
+        }
+
+        .comp-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .reward-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .sticker-slot {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border: 2px dashed #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            filter: grayscale(1);
+            opacity: 0.3;
+        }
+
+        .sticker-slot.unlocked {
+            filter: grayscale(0);
+            opacity: 1;
+            border-style: solid;
+            border-color: var(--warning);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        .comp-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.5s;
+        }
+
+        .hit-rate {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .student-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 1rem;
+            border-radius: 15px;
+            border: 2px solid #f1f5f9;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .student-card.active {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .student-card:hover .delete-btn {
+            display: flex;
+        }
+
+        .delete-btn:hover {
+            background: #ef4444;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .avatar-lg {
+            width: 60px;
+            height: 60px;
+            background: #eaeeef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .history-list {
+            font-size: 0.8rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #print-area,
+            #print-area * {
+                visibility: visible;
+            }
+
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 210mm;
+                padding: 10mm;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            header,
+            main,
+            .modal {
+                display: none !important;
+            }
+        }
+
+        .worksheet-section {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+            background: #fff;
+            padding: 10px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 15px;
+        }
+
+        .worksheet-title {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
             color: #1e293b;
-            margin-bottom: 10px;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .card p {
-            color: #64748b;
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
 
-        .card .path {
-            background: #fef3c7;
-            color: #92400e;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: inline-block;
-        }
-
-        .warning {
-            background: #fef2f2;
-            border: 2px solid #fecaca;
-            border-radius: 15px;
+        .exercise-item {
+            border: 1.5px solid #e2e8f0;
             padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .warning h3 {
-            color: #b91c1c;
-            margin-bottom: 10px;
-        }
-
-        .warning p {
-            color: #991b1b;
-            font-size: 0.95rem;
-        }
-
-        .footer {
+            border-radius: 12px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: #fdfdfd;
             text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .worksheet-footer {
+            margin-top: 30px;
+            padding: 15px;
+            border-top: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .sticker {
+            font-size: 3rem;
+            opacity: 0.8;
+            filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.1));
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .tens-red {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .units-blue {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .vertical-op {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-family: monospace;
+            font-size: 2rem;
+            padding: 10px;
+            position: relative;
+        }
+
+        .vertical-op .line {
+            width: 100%;
+            height: 2px;
+            background: #000;
+            margin: 5px 0;
+        }
+
+        .vertical-op .symbol {
+            position: absolute;
+            left: -20px;
+            bottom: 40px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <img src="img/nexia_logo.png" alt="Nexia" class="logo" onerror="this.style.display='none'">
-        <h1>¡Bienvenidos a Nexia!</h1>
-        <p class="subtitle">Elige cómo quieres abrir las actividades</p>
-
-        <div class="warning">
-            <h3>⚠️ ¿Usas Chromium en una pizarra digital?</h3>
-            <p>Chromium bloquea la navegación entre archivos locales. Debes abrir las actividades directamente desde el
-                explorador de archivos del USB.</p>
+    <header>
+        <div class="header-left" style="display:flex; align-items:center; gap:15px;">
+            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px;">
+            <nav id="app-nav" class="hidden">
+                <button class="tab-btn btn-mate active" onclick="showApp('mate', this)">Mates</button>
+                <button class="tab-btn btn-lecto" onclick="showApp('lecto', this)">Letras</button>
+            </nav>
         </div>
-
-        <div class="section">
-            <div class="section-title">🔢 Matemáticas - MateAula</div>
-            <div class="card">
-                <h3>� Abrir Matemáticas</h3>
-                <p>Abre esta carpeta en el explorador de archivos y luego abre el archivo index.html:</p>
-                <span class="path">MateAula/index.html</span>
+        <div class="header-right">
+            <div id="turn-bar" class="turn-bar hidden"></div>
+            <button class="icon-btn" onclick="openEvolution()" title="Evolución y Notas">Evolución</button>
+            <button class="icon-btn" onclick="openRanking()" title="Ranking">Ranking</button>
+            <button class="icon-btn" onclick="openGenerator()" title="Generador de Fichas (PDF)">PDF</button>
+            <button class="icon-btn" onclick="openAccessibility()" title="Ajustes de Accesibilidad"
+                style="gap:5px; font-size:0.8rem; font-weight:bold;">
+                <span>Ajustes</span>
+            </button>
+            <div style="height:30px; width:1px; background:#e2e8f0; margin:0 5px;"></div>
+            <button class="icon-btn" onclick="syncWithUSB()" title="Guardar/Cargar USB">USB</button>
+            <div class="user-badge" id="badge-user" onclick="openStudentManager()">
+                <span id="badge-avatar"></span> <span id="badge-name">Alumno</span>
             </div>
         </div>
+    </header>
 
-        <div class="section">
-            <div class="section-title">📚 Lectura - LectoAula</div>
-            <div class="card">
-                <h3>📂 Abrir Lectura</h3>
-                <p>Abre esta carpeta en el explorador de archivos y luego abre el archivo index.html:</p>
-                <span class="path">LectoAula/index.html</span>
-            </div>
+    <main>
+        <div id="start-screen"
+            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0;">
+            <h1 style="color:#1e293b; margin-bottom:1rem;">¡Bienvenidos a Nexia!</h1>
+            <p style="color:#64748b; margin-bottom:2rem;">Selecciona un alumno para empezar la aventura</p>
+            <button class="btn-primary" style="width:auto; padding:15px 40px;" onclick="openStudentManager()">Elegir
+                Alumno</button>
         </div>
+        <iframe id="iframe-mate" src="MateAula/index.html"></iframe>
+        <iframe id="iframe-lecto" src="LectoAula/index.html"></iframe>
+    </main>
 
-        <div class="section">
-            <div class="section-title">💡 Consejo</div>
-            <div class="cards">
-                <div class="card">
-                    <h3>🦊 Usa Firefox</h3>
-                    <p>Si tienes Firefox instalado, úsalo en lugar de Chromium. Firefox permite navegar entre archivos
-                        locales sin restricciones.</p>
+    <!-- Evaluation Modal -->
+    <div class="modal" id="modal-evolution">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="evo-student-name">Informe de Evolución</h2>
+                <button onclick="closeModal('modal-evolution')"
+                    style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Aciertos Totales</div>
+                    <div class="stat-value" id="stat-hits">0</div>
+                    <div class="stat-evolution" id="stat-hit-evo"></div>
                 </div>
-                <div class="card">
-                    <h3>💻 Windows/Mac/Linux</h3>
-                    <p>Usa los lanzadores automáticos: Lanzador_Windows.bat, Lanzador_Mac.command, o Lanzador_Linux.sh
-                    </p>
+                <div class="stat-card">
+                    <div class="stat-label">Ritmo de Evolución</div>
+                    <div class="stat-value" id="stat-rhythm">--</div>
+                    <div class="stat-evolution" id="stat-rhythm-desc">Comparado con línea base</div>
                 </div>
             </div>
-        </div>
 
-        <p class="footer">© 2026 Nexia Educación</p>
+            <h3>Competencias LOMLOE (Mates)</h3>
+            <div id="comp-mates"></div>
+
+            <h3 style="margin-top:1.5rem;">Competencias Lenguaje</h3>
+            <div id="comp-lecto"></div>
+
+            <h3 style="margin-top:2rem;">Historial de Sesiones</h3>
+            <div class="history-list" id="evo-history"></div>
+
+            <h3 style="margin-top:2rem;">🏅 Mi Álbum de Logros</h3>
+            <div class="reward-grid" id="reward-list"></div>
+        </div>
     </div>
+
+    <div id="confetti-container" class="confetti"></div>
+
+    <!-- Student Manager -->
+    <div class="modal" id="modal-students">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Mis Alumnos</h2>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button onclick="closeModal('modal-students')">&times;</button>
+                </div>
+            </div>
+            <div class="student-grid" id="student-list"></div>
+            <hr style="margin:1rem 0;">
+            <h3>Nuevo Alumno</h3>
+            <input type="text" id="new-name" placeholder="Nombre del niño/a"
+                style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+            <div id="avatar-grid"
+                style="display:grid; grid-template-columns:repeat(8,1fr); gap:5px; height:120px; overflow-y:auto; border:1px solid #eee; padding:5px; margin-bottom:1rem;">
+            </div>
+            <button class="btn-primary" onclick="createStudent()">Añadir Alumno ＋</button>
+        </div>
+    </div>
+
+    <!-- PDF Generator Modal -->
+    <div class="modal" id="modal-generator">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Generador de Fichas A4</h2>
+                <button onclick="closeModal('modal-generator')">&times;</button>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label><b>Nivel de Dificultad:</b></label>
+                <div style="display:flex; gap:10px; margin-top:5px;">
+                    <select id="gen-diff" style="flex:1; padding:8px; border-radius:5px;">
+                        <option value="1">Nivel 1 (Básico)</option>
+                        <option value="2">Nivel 2 (Intermedio)</option>
+                        <option value="3">Nivel 3 (Avanzado)</option>
+                    </select>
+                    <select id="gen-count" style="width:120px; padding:8px; border-radius:5px;">
+                        <option value="4">4 ejercicios</option>
+                        <option value="6">6 ejercicios</option>
+                        <option value="8">8 ejercicios</option>
+                        <option value="12">12 ejercicios</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label><b>Opciones de Matemáticas:</b></label>
+                <div style="display:flex; gap:10px; margin-top:5px;">
+                    <select id="gen-math-layout" style="flex:1; padding:8px; border-radius:5px;">
+                        <option value="horizontal">Operaciones en Horizontal</option>
+                        <option value="vertical">Operaciones en Vertical</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label><b>Opciones de Texto:</b></label>
+                <div style="display:flex; gap:10px; margin-top:5px;">
+                    <button class="tab-btn active" id="btn-case-min"
+                        onclick="setGenCase('minusculas')">ab-Minúsculas</button>
+                    <button class="tab-btn" id="btn-case-may" onclick="setGenCase('mayusculas')">AB-Mayúsculas</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label><b>Actividades de Matemáticas:</b></label>
+                <div class="checkbox-group" id="gen-mate-list"></div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label><b>Actividades de Lengua:</b></label>
+                <div class="checkbox-group" id="gen-lecto-list"></div>
+            </div>
+
+            <button class="btn-primary" onclick="generatePDF()">Generar e Imprimir Ficha 🖨️</button>
+        </div>
+    </div>
+
+    <div id="print-area"></div>
+
+    <!-- Ranking Modal -->
+    <div class="modal" id="modal-ranking">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 Ranking Nexia</h2><button onclick="closeModal('modal-ranking')">&times;</button>
+            </div>
+            <div id="ranking-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+    </div>
+
+    <!-- Accessibility Modal -->
+    <div class="modal" id="modal-access">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>♿ Ajustes de Accesibilidad</h2>
+                <button onclick="closeModal('modal-access')">&times;</button>
+            </div>
+
+
+            <div
+                style="background:#f0f9ff; padding:1.5rem; border-radius:15px; margin-bottom:1.5rem; border:1px solid #bae6fd;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <label><b>Síntesis de Voz: Leer al resaltar</b></label>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button onclick="speak('Prueba de síntesis de voz activada')"
+                            style="font-size:0.7rem; padding:4px 8px; border-radius:5px; border:1px solid #bae6fd; background:white; cursor:pointer;">Probar
+                            Voz 🔊</button>
+                        <input type="checkbox" id="acc-voice-on" style="width:25px; height:25px;"
+                            onchange="updateAccessSettings()">
+                    </div>
+                </div>
+                <p style="font-size:0.8rem; color:#0369a1; margin-top:5px;">El sistema leerá el texto de los botones y
+                    actividades mientras se realiza el barrido.</p>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <input type="file" id="import-json" class="hidden" accept=".json" onchange="handleImport(event)">
+
+    <script>
+        const COMPETENCIES = {
+            mate: {
+                "Sentido Numérico": ["Sumas", "Restas", "Nº Escritos", "Bloques", "Vecinos", "Ant. y Post."],
+                "Sentido Espacial": ["Representa", "Camino"],
+                "Medida": ["Reloj"],
+                "Pensamiento Lógico": ["Puzzle", "Compara", "Batido"]
+            },
+            lecto: {
+                "Conciencia Fonológica": ["Sílabas Perdidas", "Ahorcado Ninja"],
+                "Lectura": ["Lectura Exploradora", "Parejas de Palabras"],
+                "Escritura": ["Ordena la Palabra", "Dictado Mágico", "Escritura Libre"],
+                "Vocabulario": ["Vocabulario", "Parejas"]
+            }
+        };
+
+        const AVATARS = ['🦁', '🐯', '🐘', '🦒', '🦓', '🐼', '🐵', '🐸', '🦋', '🐢', '🐧', '🐬', '🦄', '🦖', '🐝', '🐹', '🐰', '🦊', '🐻', '🐨', '🎮', '🕹️', '🎲', '🧩', '🎾', '⚽', '🏀', '🏐', '🪁', '🎱', '🎯', '🥊', '🛝', '🎡', '🎢', '🚀', '🛸', '🚁', '✈️', '🚂', '🚓', '🚑', '🚒', '🏎️', '🚲', '🛶', '🚢'];
+
+        let students = JSON.parse(localStorage.getItem('ax_students') || '[]');
+        let activeId = localStorage.getItem('ax_active_id') || null;
+        let selAvatar = AVATARS[0];
+        let currentApp = 'mate';
+
+        // Default settings if no student is selected or no settings exist
+        const DEFAULT_ACCESS = {
+            scanning: false,
+            speed: 1.5,
+            color: "#3b82f6",
+            width: 5,
+            voice: false,
+            scanMode: 'linear',
+            filters: { nav: true, game: true, tools: true }
+        };
+        let accessSettings = DEFAULT_ACCESS;
+
+        function init() {
+            renderAvGrid();
+            renderStudents();
+            renderTurnBar();
+            if (activeId) selectStudent(activeId);
+            applyAccessSettings();
+        }
+
+        function openAccessibility() {
+            document.getElementById('acc-voice-on').checked = accessSettings.voice;
+            document.getElementById('modal-access').classList.add('active');
+        }
+
+        function updateAccessSettings() {
+            accessSettings = {
+                scanning: false,
+                voice: document.getElementById('acc-voice-on').checked,
+                speed: 1.5,
+                color: "#3b82f6",
+                width: 5,
+                scanMode: 'linear',
+                filters: { nav: true, game: true, tools: true }
+            };
+
+            // Save to the active student if possible
+            if (activeId) {
+                const s = students.find(x => x.id === activeId);
+                if (s) {
+                    s.access = accessSettings;
+                    save();
+                }
+            } else {
+                localStorage.setItem('ax_access_global', JSON.stringify(accessSettings));
+            }
+
+            applyAccessSettings();
+        }
+
+        function toggleQuickScan() {
+            accessSettings.scanning = !accessSettings.scanning;
+            if (activeId) {
+                const s = students.find(x => x.id === activeId);
+                if (s) { s.access = accessSettings; save(); }
+            } else {
+                localStorage.setItem('ax_access_global', JSON.stringify(accessSettings));
+            }
+            applyAccessSettings();
+        }
+
+        function setScanMode(mode) {
+            accessSettings.scanMode = mode;
+            document.getElementById('btn-mode-linear').classList.toggle('active', mode === 'linear');
+            document.getElementById('btn-mode-hierarchical').classList.toggle('active', mode === 'hierarchical');
+            updateAccessSettings();
+        }
+
+        function applyAccessSettings() {
+            // Send settings to both iframes
+            const settings = { type: 'UPDATE_ACCESS', settings: accessSettings };
+            document.getElementById('iframe-mate').contentWindow.postMessage(settings, '*');
+            document.getElementById('iframe-lecto').contentWindow.postMessage(settings, '*');
+        }
+
+        function renderAvGrid() {
+            document.getElementById('avatar-grid').innerHTML = AVATARS.map(a => `<button onclick="setAvatar('${a}')" style="font-size:1.5rem; background:none; border:none; cursor:pointer;" class="av-btn">${a}</button>`).join('');
+        }
+
+        function setAvatar(a) { selAvatar = a; }
+
+        function createStudent() {
+            const name = document.getElementById('new-name').value;
+            if (!name) return;
+            const ns = {
+                id: Date.now().toString(),
+                name,
+                avatar: selAvatar,
+                points: 0,
+                history: [],
+                access: JSON.parse(JSON.stringify(DEFAULT_ACCESS)) // Individual settings copy
+            };
+            students.push(ns);
+            save(); renderStudents(); renderTurnBar();
+            selectStudent(ns.id);
+            document.getElementById('new-name').value = '';
+        }
+
+        function selectStudent(id) {
+            activeId = id;
+            localStorage.setItem('ax_active_id', id);
+            const s = students.find(x => x.id === id);
+
+            // Load individual accessibility settings
+            accessSettings = s.access || JSON.parse(JSON.stringify(DEFAULT_ACCESS));
+            applyAccessSettings();
+
+            document.getElementById('badge-name').innerText = s.name;
+            document.getElementById('badge-avatar').innerText = s.avatar;
+            document.getElementById('app-nav').classList.remove('hidden');
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('turn-bar').classList.remove('hidden');
+            closeModal('modal-students');
+            renderStudents(); renderTurnBar();
+
+            const iframe = document.getElementById('iframe-' + currentApp);
+            iframe.classList.add('active');
+            iframe.contentWindow.postMessage({ type: 'INIT_USER', user: s }, '*');
+        }
+
+        function showApp(id, btn) {
+            currentApp = id;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('iframe').forEach(f => f.classList.remove('active'));
+            const iframe = document.getElementById('iframe-' + id);
+            iframe.classList.add('active');
+            const s = students.find(x => x.id === activeId);
+            iframe.contentWindow.postMessage({ type: 'INIT_USER', user: s }, '*');
+        }
+
+        function openEvolution() {
+            const s = students.find(x => x.id === activeId);
+            document.getElementById('evo-student-name').innerText = "Informe: " + s.name;
+
+            const totalHits = s.history.reduce((a, b) => a + b.hits, 0);
+            const totalAttempts = s.history.reduce((a, b) => a + b.attempts, 0);
+            document.getElementById('stat-hits').innerText = totalHits;
+
+            // Calculate Level & Rhythm
+            const level = Math.floor(s.points / 250) + 1;
+            document.getElementById('stat-rhythm').innerText = "NV. " + level;
+            document.getElementById('stat-rhythm-desc').innerText = "Nivel de experiencia";
+
+            // Render Competencies
+            const renderComp = (target, app) => {
+                const html = Object.keys(COMPETENCIES[app]).map(c => {
+                    const acts = COMPETENCIES[app][c];
+                    const logs = s.history.filter(h => h.app === app && acts.some(a => h.activity.includes(a)));
+                    const hits = logs.reduce((a, b) => a + b.hits, 0);
+                    const atts = logs.reduce((a, b) => a + b.attempts, 0);
+                    const pct = atts > 0 ? (hits / atts) * 100 : 0;
+
+                    let status = "⚪ No iniciado";
+                    let color = "#e2e8f0";
+                    if (atts > 0) {
+                        if (pct >= 90) { status = "🟢 Conseguido"; color = "#22c55e"; }
+                        else if (pct >= 50) { status = "🟡 En proceso"; color = "#f59e0b"; }
+                        else { status = "🔴 Iniciado"; color = "#ef4444"; }
+                    }
+
+                    return `
+                        <div class="comp-row">
+                            <div class="comp-header"><span>${c}</span><span style="color:${color}">${status} (${pct.toFixed(0)}%)</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%; background:${color}"></div></div>
+                            <div class="hit-rate">${hits} aciertos de ${atts} intentos</div>
+                        </div>`;
+                }).join('');
+                document.getElementById(target).innerHTML = html || "<p style='font-size:0.8rem; color:#888;'>Sin datos todavía</p>";
+            };
+            renderComp('comp-mates', 'mate');
+            renderComp('comp-lecto', 'lecto');
+
+            document.getElementById('evo-history').innerHTML = s.history.slice(-10).reverse().map(h => `
+                <div class="history-item">
+                    <span>${new Date(h.date).toLocaleDateString()} - ${h.activity}</span>
+                    <span style="font-weight:bold; color:${h.hits > 0 ? 'var(--success)' : 'var(--error)'}">${h.hits}/${h.attempts}</span>
+                </div>`).join('');
+
+            // Rewards
+            const REWARDS = ['⭐', '🥇', '🚀', '🌈', '🧩', '🎨', '🦁', '🦉', '💎', '🍦'];
+            document.getElementById('reward-list').innerHTML = REWARDS.map((r, i) => {
+                const unlocked = s.points >= (i + 1) * 500;
+                return `<div class="sticker-slot ${unlocked ? 'unlocked' : ''}" title="${(i + 1) * 500} pts">${r}</div>`;
+            }).join('');
+
+            document.getElementById('modal-evolution').classList.add('active');
+        }
+
+        function openRanking() {
+            const list = document.getElementById('ranking-list');
+            const sorted = [...students].sort((a, b) => b.points - a.points);
+            list.innerHTML = sorted.map((s, i) => `
+                <div style="display:flex; align-items:center; gap:10px; padding:10px; background:#f8fafc; border-radius:10px;">
+                    <span style="font-weight:bold; width:30px;">${i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1}</span>
+                    <span style="font-size:1.5rem;">${s.avatar}</span>
+                    <span style="flex:1; font-weight:bold;">${s.name}</span>
+                    <span style="color:var(--primary); font-weight:800;">${s.points} pts</span>
+                </div>`).join('');
+            document.getElementById('modal-ranking').classList.add('active');
+        }
+
+        function renderTurnBar() {
+            document.getElementById('turn-bar').innerHTML = students.map(s => `
+                <div class="turn-avatar ${s.id === activeId ? 'active' : ''}" onclick="selectStudent('${s.id}')" title="${s.name}">${s.avatar}</div>`).join('');
+        }
+
+        function renderStudents() {
+            document.getElementById('student-list').innerHTML = students.map(s => `
+                <div class="student-card ${s.id === activeId ? 'active' : ''}" onclick="selectStudent('${s.id}')">
+                    <button class="delete-btn" onclick="deleteStudent('${s.id}', event)" title="Borrar Alumno">🗑️</button>
+                    <div class="avatar-lg">${s.avatar}</div>
+                    <div style="font-weight:bold;">${s.name}</div>
+                    <div style="font-size:0.75rem; color:#888;">${s.points} pts</div>
+                </div>`).join('');
+        }
+
+        function deleteStudent(id, event) {
+            event.stopPropagation();
+            const s = students.find(x => x.id === id);
+            if (!confirm(`¿Estás seguro de que quieres borrar a ${s.name}? Se perderán todos sus puntos e historial.`)) return;
+
+            students = students.filter(x => x.id !== id);
+            if (activeId === id) {
+                activeId = null;
+                localStorage.removeItem('ax_active_id');
+                document.getElementById('app-nav').classList.add('hidden');
+                document.getElementById('start-screen').classList.remove('hidden');
+                document.getElementById('turn-bar').classList.add('hidden');
+                document.getElementById('badge-name').innerText = "Alumno";
+                document.getElementById('badge-avatar').innerText = "👤";
+                document.querySelectorAll('iframe').forEach(f => f.classList.remove('active'));
+            }
+            save();
+            renderStudents();
+            renderTurnBar();
+        }
+
+        function save() { localStorage.setItem('ax_students', JSON.stringify(students)); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function openStudentManager() { document.getElementById('modal-students').classList.add('active'); }
+
+        // Speech Engine
+        function speak(text) {
+            if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            const voices = window.speechSynthesis.getVoices();
+            // Prioritize natural voices
+            msg.voice = voices.find(v => (v.name.includes('Google') || v.name.includes('Monica')) && v.lang.startsWith('es')) || voices.find(v => v.lang.startsWith('es'));
+            msg.rate = 0.9;
+            msg.pitch = 1.1;
+            window.speechSynthesis.speak(msg);
+        }
+
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'SPEAK') speak(e.data.text);
+            if (e.data.type === 'UPDATE_SCORE_DETAILED' || e.data.type === 'UPDATE_SCORE') {
+                const s = students.find(x => x.id === activeId);
+                if (s) {
+                    const oldP = s.points;
+                    if (e.data.score !== undefined) s.points = e.data.score;
+
+                    // Level Up Detection
+                    if (Math.floor(s.points / 250) > Math.floor(oldP / 250)) {
+                        triggerCelebration();
+                    }
+
+                    // Add to history
+                    const log = {
+                        date: Date.now(),
+                        app: e.data.app,
+                        activity: e.data.activity || "Desconocida",
+                        hits: e.data.ok ? 1 : 0,
+                        attempts: 1
+                    };
+                    s.history.push(log);
+                    save();
+                    renderStudents();
+                    renderTurnBar();
+                }
+            }
+        });
+
+        function triggerCelebration() {
+            const container = document.getElementById('confetti-container');
+            container.style.display = 'block';
+            container.innerHTML = Array(50).fill(0).map(() => {
+                const l = Math.random() * 100, t = -10, s = Math.random() * 10 + 5, c = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                return `<div style="position:absolute; left:${l}%; top:${t}%; width:${s}px; height:${s}px; background:${c}; border-radius:50%; animation:fall 2s linear forwards;"></div>`;
+            }).join('');
+            speak("¡Genial! Has subido de nivel");
+            setTimeout(() => container.style.display = 'none', 3000);
+        }
+
+        // Add CSS for fall
+        const style = document.createElement('style');
+        style.innerHTML = "@keyframes fall { to { top: 110%; transform: rotate(360deg); } }";
+        document.head.appendChild(style);
+
+        function syncWithUSB() {
+            const act = confirm("Aceptar: GUARDAR en USB (Descargar)\nCancelar: CARGAR desde USB (Seleccionar)");
+            if (act) {
+                const blob = new Blob([JSON.stringify(students)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = "Nexia_Registro_Global.json"; a.click();
+            } else { document.getElementById('import-json').click(); }
+        }
+
+        function handleImport(e) {
+            const r = new FileReader();
+            r.onload = (ev) => { students = JSON.parse(ev.target.result); save(); init(); alert("¡Datos actualizados!"); };
+            if (e.target.files[0]) r.readAsText(e.target.files[0]);
+        }
+
+        let genCase = 'minusculas';
+        const LECTO_VOCAB = {
+            1: [{ w: 'sol', s: ['sol'] }, { w: 'pez', s: ['pez'] }, { w: 'luna', s: ['lu', 'na'] }, { w: 'casa', s: ['ca', 'sa'] }, { w: 'pato', s: ['pa', 'to'] }, { w: 'gato', s: ['ga', 'to'] }, { w: 'mesa', s: ['me', 'sa'] }, { w: 'nube', s: ['nu', 'be'] }],
+            2: [{ w: 'plato', s: ['pla', 'to'] }, { w: 'libro', s: ['li', 'bro'] }, { w: 'globo', s: ['glo', 'bo'] }, { w: 'tigre', s: ['ti', 'gre'] }, { w: 'fruta', s: ['fru', 'ta'] }, { w: 'estrella', s: ['es', 'tre', 'lla'] }, { w: 'zapato', s: ['za', 'pa', 'to'] }],
+            3: [{ w: 'elefante', s: ['e', 'le', 'fan', 'te'] }, { w: 'mariposa', s: ['ma', 'ri', 'po', 'sa'] }, { w: 'helicoptero', s: ['he', 'li', 'cop', 'te', 'ro'] }, { w: 'ordenador', s: ['or', 'de', 'na', 'dor'] }, { w: 'escalera', s: ['es', 'ca', 'le', 'ra'] }]
+        };
+
+        function openGenerator() {
+            const mateList = document.getElementById('gen-mate-list');
+            const lectoList = document.getElementById('gen-lecto-list');
+
+            mateList.innerHTML = Object.entries(COMPETENCIES.mate).flatMap(([cat, acts]) =>
+                acts.map(a => `
+                <label class="checkbox-item"><input type="checkbox" class="gen-mate-check" data-cat="${cat}" value="${a}"> ${a}</label>
+            `)).join('');
+
+            lectoList.innerHTML = Object.entries(COMPETENCIES.lecto).flatMap(([cat, acts]) =>
+                acts.map(a => `
+                <label class="checkbox-item"><input type="checkbox" class="gen-lecto-check" data-cat="${cat}" value="${a}"> ${a}</label>
+            `)).join('');
+
+            document.getElementById('modal-generator').classList.add('active');
+        }
+
+        function setGenCase(c) {
+            genCase = c;
+            document.getElementById('btn-case-min').classList.toggle('active', c === 'minusculas');
+            document.getElementById('btn-case-may').classList.toggle('active', c === 'mayusculas');
+        }
+
+        function formatGen(t) { return genCase === 'mayusculas' ? t.toUpperCase() : t.toLowerCase(); }
+
+        function colorNumber(n) {
+            const s = n.toString();
+            if (s.length === 1) return `<span class="units-blue">${s}</span>`;
+            if (s.length === 2) return `<span class="tens-red">${s[0]}</span><span class="units-blue">${s[1]}</span>`;
+            return s;
+        }
+
+        function generatePDF() {
+            const diff = parseInt(document.getElementById('gen-diff').value);
+            const count = parseInt(document.getElementById('gen-count').value);
+            const layout = document.getElementById('gen-math-layout').value;
+            const selectedMate = Array.from(document.querySelectorAll('.gen-mate-check:checked')).map(c => c.value);
+            const selectedLecto = Array.from(document.querySelectorAll('.gen-lecto-check:checked')).map(c => c.value);
+
+            if (selectedMate.length === 0 && selectedLecto.length === 0) return alert("Selecciona al menos una actividad");
+
+            let html = `
+                <div style="padding:10px; border:6px double var(--primary); border-radius:30px; margin-bottom:20px; position:relative;">
+                    <span class="sticker" style="position:absolute; top:-10px; right:-10px;">🌟</span>
+                    <h1 style="font-size:2.2rem; margin:0; color:var(--primary); text-transform:uppercase; text-align:center;">¡VAMOS A APRENDER! 🚀</h1>
+                    <div style="display:flex; justify-content:space-between; margin-top:15px; font-weight:bold; font-size:1.1rem; border-top:1px dashed #ccc; padding-top:10px;">
+                        <span>NOMBRE: _________________________________</span>
+                        <span>NIVEL: ${diff}</span>
+                    </div>
+                </div>`;
+
+            // Matemáticas
+            selectedMate.forEach(act => {
+                const icon = act.includes('Suma') ? '➕' : (act.includes('Resta') ? '➖' : '🔢');
+                html += `<div class="worksheet-section">
+                    <div class="worksheet-title">${icon} Matemáticas: ${act}</div>
+                    <div class="exercise-grid">`;
+                for (let i = 0; i < count; i++) {
+                    html += `<div class="exercise-item">${getMateExercise(act, diff, layout)}</div>`;
+                }
+                html += `</div></div>`;
+            });
+
+            // Lengua
+            selectedLecto.forEach(act => {
+                const icon = act.includes('Lectura') ? '📖' : (act.includes('Escritura') ? '✍️' : '📚');
+                html += `<div class="worksheet-section">
+                    <div class="worksheet-title">${icon} Lectoescritura: ${act}</div>
+                    <div class="exercise-grid">`;
+                for (let i = 0; i < count; i++) {
+                    html += `<div class="exercise-item">${getLectoExercise(act, diff)}</div>`;
+                }
+                html += `</div></div>`;
+            });
+
+            html += `
+                <div class="worksheet-footer">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <b>¿Cómo te has sentido hoy?</b>
+                        <span style="font-size:2rem;">😀 😐 ☹️</span>
+                    </div>
+                    <div style="text-align:right;">
+                        <span class="sticker">🎨</span>
+                        <div style="font-weight:bold; color:var(--secondary);">¡Eres un artista!</div>
+                    </div>
+                </div>
+                <div style="text-align:center; font-size:0.7rem; color:#888; margin-top:10px;">Generado con Nexia - Material educativo personalizado</div>
+            `;
+
+            document.getElementById('print-area').innerHTML = html;
+            window.print();
+        }
+
+        function getMateExercise(act, diff, layout) {
+            const r = (m) => Math.floor(Math.random() * m) + 1;
+            const max = diff === 1 ? 9 : (diff === 2 ? 49 : 99);
+
+            if (act === 'Sumas' || act === 'Restas') {
+                const isSuma = act === 'Sumas';
+                let a, b;
+                if (isSuma) { a = r(max); b = r(max); }
+                else { a = r(max); b = r(a); }
+
+                if (layout === 'vertical') {
+                    return `
+                        <div class="vertical-op">
+                            <span>${colorNumber(a)}</span>
+                            <span>${colorNumber(b)}</span>
+                            <span class="symbol">${isSuma ? '+' : '-'}</span>
+                            <div class="line"></div>
+                            <span style="visibility:hidden">99</span>
+                        </div>`;
+                } else {
+                    return `<span>${colorNumber(a)} ${isSuma ? '+' : '-'} ${colorNumber(b)} = <span style="color:#eee">___</span></span>`;
+                }
+            }
+            if (act === 'Ant. y Post.') {
+                const n = r(max - 2) + 1;
+                return `<div>${colorNumber(n - 1)} &lt; <b style="font-size:2.5rem">${colorNumber(n)}</b> &lt; ${colorNumber(n + 1)}</div>`.replace(new RegExp(colorNumber(n - 1), 'g'), '___').replace(new RegExp(colorNumber(n + 1), 'g'), '___');
+            }
+            if (act === 'Vecinos') return `<div style="text-align:center;"><small>Casa de:</small><br><b style="font-size:2.5rem">${colorNumber(r(max))}</b><br><span style="font-size:0.9rem">🏠 Vecinos: ___ y ___</span></div>`;
+            if (act === 'Compara') return `<div>${colorNumber(r(max))} <span style="border:1px solid #ccc; padding:0 15px; border-radius:5px; color:#eee">?</span> ${colorNumber(r(max))}</div>`;
+            return `<div>¿Qué número es? <br> <span style="font-size:1.5rem; color:#ccc;">(____)</span></div>`;
+        }
+
+        function getLectoExercise(act, diff) {
+            const vocab = LECTO_VOCAB[diff];
+            const item = vocab[Math.floor(Math.random() * vocab.length)];
+            const word = formatGen(item.w);
+            const emojis = ['🐯', '🐘', '🍦', '🍎', '🌈', '🚲', '🚀', '⭐'];
+            const randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+            if (act.includes('Sílabas') || act.includes('sílaba') || act.includes('completa') || act.includes('Sopa')) {
+                if (act.includes('Ordena')) return `<div style="text-align:center;"><small>${randEmoji} Ordena:</small><br><b>${item.s.sort(() => Math.random() - 0.5).map(s => formatGen(s)).join(' - ')}</b><br><span style="color:#eee">_____________</span></div>`;
+                if (act.includes('perdidas') || act.includes('Completa')) {
+                    const idx = Math.floor(Math.random() * item.s.length);
+                    const copy = [...item.s]; copy[idx] = '___';
+                    return `<div>${copy.map(s => formatGen(s)).join(' ')}<br><small>${randEmoji} ¿Falta algo?</small></div>`;
+                }
+                return `<div><b>${word}</b><br><small>✍️ Separa: ____ - ____</small></div>`;
+            }
+            if (act.includes('Escritura') || act.includes('Dictado') || act.includes('Copia')) return `<div style="font-size:1.4rem;">${randEmoji} Palabras:<br>________________<br>________________</div>`;
+            return `<div>${randEmoji} Palabra: <br><b style="font-size:2rem">${word}</b></div>`;
+        }
+
+        // Hierarchical Scanner
+
+        init();
+    </script>
 </body>
 
 </html>
