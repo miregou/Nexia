@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexia: Mates y Letras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            width: 120px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            background: #f1f5f9;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card .path {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .warning {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .warning h3 {
+            color: #b91c1c;
+            margin-bottom: 10px;
+        }
+
+        .warning p {
+            color: #991b1b;
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="img/nexia_logo.png" alt="Nexia" class="logo" onerror="this.style.display='none'">
+        <h1>¡Bienvenidos a Nexia!</h1>
+        <p class="subtitle">Elige cómo quieres abrir las actividades</p>
+
+        <div class="warning">
+            <h3>⚠️ ¿Usas Chromium en una pizarra digital?</h3>
+            <p>Chromium bloquea la navegación entre archivos locales. Debes abrir las actividades directamente desde el
+                explorador de archivos del USB.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔢 Matemáticas - MateAula</div>
+            <div class="card">
+                <h3>� Abrir Matemáticas</h3>
+                <p>Abre esta carpeta en el explorador de archivos y luego abre el archivo index.html:</p>
+                <span class="path">MateAula/index.html</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📚 Lectura - LectoAula</div>
+            <div class="card">
+                <h3>📂 Abrir Lectura</h3>
+                <p>Abre esta carpeta en el explorador de archivos y luego abre el archivo index.html:</p>
+                <span class="path">LectoAula/index.html</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💡 Consejo</div>
+            <div class="cards">
+                <div class="card">
+                    <h3>🦊 Usa Firefox</h3>
+                    <p>Si tienes Firefox instalado, úsalo en lugar de Chromium. Firefox permite navegar entre archivos
+                        locales sin restricciones.</p>
+                </div>
+                <div class="card">
+                    <h3>💻 Windows/Mac/Linux</h3>
+                    <p>Usa los lanzadores automáticos: Lanzador_Windows.bat, Lanzador_Mac.command, o Lanzador_Linux.sh
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer">© 2026 Nexia Educación</p>
+    </div>
+</body>
+
+</html>

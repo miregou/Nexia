@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexia: Letras - Lectoescritura 1º Primaria</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playwrite+ES:wght@100..400&family=Caveat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Fallbacks para modo offline (cuando no carga Google Fonts) */
+        :root {
+            --font-main: 'Nunito', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-cursive: 'Playwrite ES', 'Comic Sans MS', 'Comic Sans', cursive;
+            --font-hand: 'Caveat', 'Brush Script MT', cursive;
+        }
+
+        body {
+            font-family: var(--font-main);
+        }
+
+        .font-escolar,
+        .font-ligada {
+            font-family: var(--font-cursive);
+        }
+
+        .pizarra-label {
+            font-family: var(--font-hand);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- VISTA MENÚ -->
+        <div id="view-menu" class="view active">
+            <div class="app-header">
+                <div class="header-top">
+                    <button class="btn-curriculum" onclick="openCurriculumModal()">📋 Currículo</button>
+                </div>
+                <div class="brand-container" style="display:flex; flex-direction:column; align-items:center;">
+                    <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 80px; margin-bottom: 10px;">
+                    <p class="app-subtitle" style="margin-top:0;">LECTOAULA - PIZARRA TÁCTIL DE LECTOESCRITURA</p>
+                </div>
+            </div>
+            <div class="menu-grid">
+                <!-- LECTURA -->
+                <div class="menu-card" onclick="startActivity('sopa')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="15" y="15" width="70" height="70" rx="8" fill="#e0e7ff" stroke="#6366f1"
+                                stroke-width="3" />
+                            <text x="25" y="40" font-size="16" font-weight="bold" fill="#4f46e5">A B C</text>
+                            <text x="25" y="58" font-size="16" font-weight="bold" fill="#4f46e5">D E F</text>
+                            <text x="25" y="76" font-size="16" font-weight="bold" fill="#4f46e5">G H I</text>
+                        </svg></div>
+                    <span class="menu-title">Sopa Letras</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('une')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <circle cx="25" cy="35" r="15" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+                            <text x="25" y="40" text-anchor="middle" font-size="18">🏠</text>
+                            <rect x="55" y="22" width="35" height="26" rx="5" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="72" y="40" text-anchor="middle" font-size="10" font-weight="bold">casa</text>
+                            <path d="M40 35 L55 35" stroke="#22c55e" stroke-width="3" stroke-dasharray="4 2" />
+                        </svg></div>
+                    <span class="menu-title">Une Palabra</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('completa')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <text x="15" y="55" font-size="28" font-weight="bold" fill="#1e293b">c</text>
+                            <rect x="35" y="30" width="25" height="32" rx="4" fill="#fef08a" stroke="#eab308"
+                                stroke-width="2" stroke-dasharray="4 2" />
+                            <text x="47" y="52" text-anchor="middle" font-size="18" fill="#64748b">?</text>
+                            <text x="65" y="55" font-size="28" font-weight="bold" fill="#1e293b">sa</text>
+                        </svg></div>
+                    <span class="menu-title">Completa</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('silabas')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="10" y="35" width="25" height="25" rx="4" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="22" y="52" text-anchor="middle" font-size="10" font-weight="bold">sa</text>
+                            <rect x="38" y="35" width="25" height="25" rx="4" fill="#dcfce7" stroke="#22c55e"
+                                stroke-width="2" />
+                            <text x="50" y="52" text-anchor="middle" font-size="10" font-weight="bold">ca</text>
+                            <path d="M30 47 L40 47" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+                        </svg></div>
+                    <span class="menu-title">Ordena Sílabas</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('comprension')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="15" y="20" width="70" height="55" rx="5" fill="#f8fafc" stroke="#94a3b8"
+                                stroke-width="2" />
+                            <line x1="25" y1="35" x2="75" y2="35" stroke="#cbd5e1" stroke-width="2" />
+                            <line x1="25" y1="45" x2="65" y2="45" stroke="#cbd5e1" stroke-width="2" />
+                            <line x1="25" y1="55" x2="70" y2="55" stroke="#cbd5e1" stroke-width="2" />
+                            <circle cx="50" cy="75" r="8" fill="#22c55e" />
+                            <text x="50" y="79" text-anchor="middle" font-size="10" fill="white">✓</text>
+                        </svg></div>
+                    <span class="menu-title">Comprensión</span>
+                </div>
+
+                <!-- ESCRITURA -->
+                <div class="menu-card" onclick="startActivity('dictado')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <circle cx="30" cy="30" r="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+                            <text x="30" y="36" text-anchor="middle" font-size="18">🐱</text>
+                            <circle cx="70" cy="30" r="16" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+                            <text x="70" y="36" text-anchor="middle" font-size="18">🔊</text>
+                            <path d="M50 50 L50 65" stroke="#64748b" stroke-width="2" />
+                            <rect x="20" y="70" width="60" height="15" rx="3" fill="#e0e7ff" stroke="#6366f1"
+                                stroke-width="2" stroke-dasharray="4 2" />
+                        </svg></div>
+                    <span class="menu-title">Dictado</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('copia')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="20" y="20" width="60" height="22" rx="4" fill="#f0fdf4" stroke="#22c55e"
+                                stroke-width="2" />
+                            <text x="50" y="36" text-anchor="middle" font-size="14" font-family="cursive"
+                                fill="#166534">mesa</text>
+                            <path d="M50 45 L50 55" stroke="#64748b" stroke-width="2" />
+                            <rect x="20" y="58" width="60" height="22" rx="4" fill="#fff" stroke="#cbd5e1"
+                                stroke-width="2" stroke-dasharray="4 2" />
+                        </svg></div>
+                    <span class="menu-title">Copia</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('oraciones')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="10" y="40" width="22" height="18" rx="3" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="21" y="53" text-anchor="middle" font-size="8" font-weight="bold">El</text>
+                            <rect x="35" y="40" width="28" height="18" rx="3" fill="#dcfce7" stroke="#22c55e"
+                                stroke-width="2" />
+                            <text x="49" y="53" text-anchor="middle" font-size="8" font-weight="bold">gato</text>
+                            <rect x="66" y="40" width="28" height="18" rx="3" fill="#fef3c7" stroke="#f59e0b"
+                                stroke-width="2" />
+                            <text x="80" y="53" text-anchor="middle" font-size="8" font-weight="bold">come</text>
+                        </svg></div>
+                    <span class="menu-title">Oraciones</span>
+                </div>
+
+                <!-- FONOLOGÍA -->
+                <div class="menu-card" onclick="startActivity('inicial')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="35" r="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+                            <text x="50" y="42" text-anchor="middle" font-size="22">🌙</text>
+                            <rect x="35" y="58" width="30" height="28" rx="6" fill="#a855f7" stroke="#7c3aed"
+                                stroke-width="2" />
+                            <text x="50" y="78" text-anchor="middle" font-size="18" font-weight="bold"
+                                fill="white">L</text>
+                        </svg></div>
+                    <span class="menu-title">Letra Inicial</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('contarSilabas')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <text x="50" y="35" text-anchor="middle" font-size="16"
+                                font-weight="bold">ma-ri-po-sa</text>
+                            <circle cx="25" cy="60" r="10" fill="#22c55e" />
+                            <circle cx="42" cy="60" r="10" fill="#22c55e" />
+                            <circle cx="59" cy="60" r="10" fill="#22c55e" />
+                            <circle cx="76" cy="60" r="10" fill="#22c55e" />
+                            <text x="25" y="64" text-anchor="middle" font-size="10" fill="white">1</text>
+                            <text x="42" y="64" text-anchor="middle" font-size="10" fill="white">2</text>
+                            <text x="59" y="64" text-anchor="middle" font-size="10" fill="white">3</text>
+                            <text x="76" y="64" text-anchor="middle" font-size="10" fill="white">4</text>
+                        </svg></div>
+                    <span class="menu-title">Cuenta Sílabas</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('rimas')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="15" y="25" width="30" height="22" rx="4" fill="#f0abfc" stroke="#d946ef"
+                                stroke-width="2" />
+                            <text x="30" y="40" text-anchor="middle" font-size="10" font-weight="bold">gato</text>
+                            <rect x="55" y="25" width="30" height="22" rx="4" fill="#f0abfc" stroke="#d946ef"
+                                stroke-width="2" />
+                            <text x="70" y="40" text-anchor="middle" font-size="10" font-weight="bold">pato</text>
+                            <text x="50" y="70" text-anchor="middle" font-size="20">🎵</text>
+                        </svg></div>
+                    <span class="menu-title">Rimas</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('buscaSilaba')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="30" y="20" width="40" height="22" rx="6" fill="#fbbf24" stroke="#d97706"
+                                stroke-width="2" />
+                            <text x="50" y="35" text-anchor="middle" font-size="14" font-weight="bold">PA</text>
+                            <text x="25" y="65" font-size="11" font-weight="bold" fill="#166534">pato</text>
+                            <text x="55" y="65" font-size="11" font-weight="bold" fill="#166534">papa</text>
+                            <text x="25" y="82" font-size="11" fill="#94a3b8">mesa</text>
+                        </svg></div>
+                    <span class="menu-title">Busca Sílaba</span>
+                </div>
+
+                <!-- JUEGOS -->
+                <div class="menu-card" onclick="startActivity('memory')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="15" y="25" width="30" height="35" rx="4" fill="#3b82f6" stroke="#1d4ed8"
+                                stroke-width="2" />
+                            <text x="30" y="47" text-anchor="middle" font-size="14" fill="white">?</text>
+                            <rect x="55" y="25" width="30" height="35" rx="4" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="70" y="47" text-anchor="middle" font-size="16">🐶</text>
+                            <text x="50" y="78" text-anchor="middle" font-size="12" font-weight="bold">MEMORY</text>
+                        </svg></div>
+                    <span class="menu-title">Memory</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('ahorcado')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <line x1="25" y1="80" x2="75" y2="80" stroke="#1e293b" stroke-width="3" />
+                            <line x1="35" y1="80" x2="35" y2="25" stroke="#1e293b" stroke-width="3" />
+                            <line x1="35" y1="25" x2="55" y2="25" stroke="#1e293b" stroke-width="3" />
+                            <line x1="55" y1="25" x2="55" y2="35" stroke="#1e293b" stroke-width="2" />
+                            <circle cx="55" cy="42" r="7" fill="none" stroke="#64748b" stroke-width="2" />
+                            <rect x="20" y="65" width="12" height="10" rx="2" fill="#fef08a" stroke="#eab308"
+                                stroke-width="1" />
+                            <text x="26" y="73" text-anchor="middle" font-size="7">_</text>
+                            <rect x="35" y="65" width="12" height="10" rx="2" fill="#fef08a" stroke="#eab308"
+                                stroke-width="1" />
+                            <rect x="50" y="65" width="12" height="10" rx="2" fill="#fef08a" stroke="#eab308"
+                                stroke-width="1" />
+                            <rect x="65" y="65" width="12" height="10" rx="2" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="1" />
+                            <text x="71" y="73" text-anchor="middle" font-size="7" font-weight="bold">A</text>
+                        </svg></div>
+                    <span class="menu-title">Ahorcado</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('clasificar')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="10" y="30" width="35" height="45" rx="5" fill="#dcfce7" stroke="#22c55e"
+                                stroke-width="2" />
+                            <text x="27" y="45" text-anchor="middle" font-size="8" font-weight="bold">Animales</text>
+                            <rect x="55" y="30" width="35" height="45" rx="5" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="72" y="45" text-anchor="middle" font-size="8" font-weight="bold">Cosas</text>
+                            <rect x="30" y="55" width="18" height="12" rx="2" fill="#fef3c7" stroke="#f59e0b"
+                                stroke-width="1" />
+                            <text x="39" y="64" text-anchor="middle" font-size="6">perro</text>
+                        </svg></div>
+                    <span class="menu-title">Clasificar</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('carrera')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="5" y="20" width="40" height="60" rx="5" fill="#dbeafe" stroke="#3b82f6"
+                                stroke-width="2" />
+                            <text x="25" y="55" text-anchor="middle" font-size="24">👤</text>
+                            <rect x="55" y="20" width="40" height="60" rx="5" fill="#fce7f3" stroke="#ec4899"
+                                stroke-width="2" />
+                            <text x="75" y="55" text-anchor="middle" font-size="24">👤</text>
+                            <text x="50" y="15" text-anchor="middle" font-size="12" font-weight="bold">🏁</text>
+                        </svg></div>
+                    <span class="menu-title">Carrera 2P</span>
+                </div>
+                <!-- NUEVAS ACTIVIDADES -->
+                <div class="menu-card" onclick="startActivity('adivinanzas')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="#fef08a" stroke="#eab308" stroke-width="2" />
+                            <text x="50" y="55" text-anchor="middle" font-size="40">🤔</text>
+                            <path d="M30 70 Q50 90 70 70" fill="none" stroke="#ca8a04" stroke-width="3" />
+                        </svg></div>
+                    <span class="menu-title">Adivinanzas</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('ordenaCuento')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="20" y="20" width="60" height="70" rx="5" fill="#e0e7ff" stroke="#6366f1"
+                                stroke-width="2" />
+                            <text x="50" y="60" text-anchor="middle" font-size="30">📖</text>
+                            <rect x="25" y="15" width="50" height="10" rx="2" fill="#4f46e5" />
+                        </svg></div>
+                    <span class="menu-title">Ordena Cuento</span>
+                </div>
+                <div class="menu-card" onclick="startActivity('equipo')">
+                    <div class="icon-box"><svg viewBox="0 0 100 100">
+                            <rect x="10" y="30" width="80" height="40" rx="20" fill="#dcfce7" stroke="#22c55e"
+                                stroke-width="2" />
+                            <circle cx="30" cy="50" r="15" fill="#3b82f6" />
+                            <circle cx="70" cy="50" r="15" fill="#ec4899" />
+                            <text x="50" y="55" text-anchor="middle" font-size="20">🤝</text>
+                        </svg></div>
+                    <span class="menu-title">Equipo 2P</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA JUEGO -->
+        <div id="view-game" class="view">
+            <div class="game-header">
+                <div class="header-left">
+                    <button onclick="goToMenu()" class="btn-nav">🏠 MENÚ</button>
+                    <!-- Elemento necesario para JS pero oculto permanentemente -->
+                    <button id="btn-speak" style="display:none !important;"></button>
+                    <button onclick="openFontSettings()" class="btn-nav btn-font">Aa LETRA</button>
+                </div>
+                <div class="header-center">
+                    <div id="game-title" class="game-title-badge">ACTIVIDAD</div>
+                </div>
+                <div class="header-right">
+                    <div id="difficulty-selector">
+                        <button onclick="setDifficulty(1)" id="diff-1" class="difficulty-btn active">N1</button>
+                        <button onclick="setDifficulty(2)" id="diff-2" class="difficulty-btn">N2</button>
+                        <button onclick="setDifficulty(3)" id="diff-3" class="difficulty-btn">N3</button>
+                    </div>
+                    <div class="score-badge">
+                        <button onclick="resetRound()" class="btn-nav btn-reset">🔄</button>
+                        <span>⭐ <span id="score">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-container" class="main-layout">
+                <div class="panel panel-left">
+                    <div id="instruction" class="instruction-pill instruction-neutral">...</div>
+                    <div id="exercise-container"></div>
+                    <div id="action-section">
+                        <button onclick="generateExercise()" class="btn-game-action">NUEVO RETO 🎲</button>
+                    </div>
+                </div>
+
+                <div id="right-panel" class="panel panel-right">
+                    <div id="pizarra-container">
+                        <div class="pizarra-header">
+                            <span class="pizarra-label">✏️ ESCRIBE AQUÍ</span>
+                            <div class="pizarra-tools">
+                                <button onclick="setPenColor('#1e293b')" class="pen-btn pen-black active"
+                                    title="Negro"></button>
+                                <button onclick="setPenColor('#3b82f6')" class="pen-btn pen-blue" title="Azul"></button>
+                                <button onclick="setPenColor('#ef4444')" class="pen-btn pen-red" title="Rojo"></button>
+                                <button onclick="clearCanvas()" class="btn-clear">BORRAR 🗑️</button>
+                            </div>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="canvas-pizarra"></canvas>
+                            <div class="pauta-lines"></div>
+                        </div>
+                    </div>
+                    <div id="check-section">
+                        <button onclick="checkWriting()" class="btn-check">✓ COMPROBAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIGURACIÓN DE FUENTE -->
+    <div id="font-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3>⚙️ Tipo de Letra</h3>
+
+            <div class="font-option-group">
+                <p class="option-label">Estilo de letra:</p>
+                <div class="font-buttons">
+                    <button onclick="setFontType('escolar')" class="font-type-btn active" data-type="escolar">
+                        <span class="font-escolar">Escolar</span>
+                    </button>
+                    <button onclick="setFontType('ligada')" class="font-type-btn" data-type="ligada">
+                        <span class="font-ligada">Ligada</span>
+                    </button>
+                    <button onclick="setFontType('arial')" class="font-type-btn" data-type="arial">
+                        <span class="font-arial">Arial</span>
+                    </button>
+                    <button onclick="setFontType('redonda')" class="font-type-btn" data-type="redonda">
+                        <span class="font-redonda">Redonda</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="font-option-group">
+                <p class="option-label">Mayúsculas / Minúsculas:</p>
+                <div class="font-buttons">
+                    <button onclick="setFontCase('minusculas')" class="font-case-btn active" data-case="minusculas">
+                        abc (minúsculas)
+                    </button>
+                    <button onclick="setFontCase('mayusculas')" class="font-case-btn" data-case="mayusculas">
+                        ABC (MAYÚSCULAS)
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="closeFontSettings()" class="btn-close-modal">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- MODAL CURRÍCULO LOMLOE -->
+    <div id="curriculum-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content curriculum-modal-content">
+            <h3>📋 Currículo LOMLOE - 1º Primaria</h3>
+            <p class="curriculum-subtitle">Área de Lengua Castellana y Literatura</p>
+
+            <div class="curriculum-objectives" id="curriculum-list">
+                <!-- Los objetivos se cargan dinámicamente desde JS -->
+            </div>
+
+            <button onclick="closeCurriculumModal()" class="btn-close-modal">CERRAR</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
