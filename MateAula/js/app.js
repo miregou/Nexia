@@ -101,6 +101,8 @@ class MathApp {
     startActivity(mode) {
         this.elements.viewMenu.classList.remove('active');
         this.elements.viewGame.classList.add('active');
+        // Ensure canvas is sized correctly now that it is visible
+        requestAnimationFrame(() => this.resizeCanvas());
         this.setGameMode(mode);
     }
 
@@ -295,8 +297,8 @@ class MathApp {
     genLectura() { this.val1 = this.getRandomNumber(); this.renderLectura(); }
     renderLectura() {
         this.elements.exerciseContainer.innerHTML = `
-            <div class="flex-row items-center justify-center gap-8 animate-pop">
-                <div class="cursive-text" style="font-size:3rem;">${this.getColoredWord(this.val1)}</div>
+            <div class="flex-row items-center justify-center gap-4 animate-pop">
+                <div class="cursive-text" style="font-size:2.5rem;">${this.getColoredWord(this.val1)}</div>
                 <div class="number-box">${this.userInputValue || '?'}</div>
             </div>`;
     }
@@ -310,11 +312,11 @@ class MathApp {
     renderBloques() {
         // Horizontal Layout: Visuals (Left) - Inputs (Right)
         this.elements.exerciseContainer.innerHTML = `
-            <div class="flex-row items-center justify-center w-full gap-8">
+            <div class="flex-row items-center justify-center w-full gap-4">
                 <div class="flex-column items-center justify-center" style="flex:1;">
                     ${this.getSticks(this.val1, '#1e3a8a')}
                 </div>
-                <div class="flex-row items-center gap-4" style="background:white; padding:20px; border-radius:20px; border:2px solid #e2e8f0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+                <div class="flex-row items-center gap-4" style="background:white; padding:1rem; border-radius:20px; border:2px solid #e2e8f0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
                     <div onclick="setActiveField('pures')" class="input-box-field tens-border ${this.activeField === 'pures' ? 'active' : ''}">
                         ${this.lectInputs.pures ? `<span class="tens">${this.lectInputs.pures}</span>` : ''}
                         <div class="label-guide" style="position:absolute; bottom:-20px; color:#ef4444;">D</div>
@@ -389,7 +391,7 @@ class MathApp {
     genComparar() { this.val1 = this.getRandomNumber(); this.val2 = this.getRandomNumber(); this.renderComparar(); }
     renderComparar() {
         this.elements.exerciseContainer.innerHTML = `
-            <div class="flex-row items-center justify-center gap-10 animate-pop">
+            <div class="flex-row items-center justify-center gap-6 animate-pop">
                 <div class="number-box">${this.val1}</div>
                 <div class="number-box text-neutral-400">?</div>
                 <div class="number-box">${this.val2}</div>
@@ -397,7 +399,7 @@ class MathApp {
     }
 
     getSticks(num, color) {
-        let s = `<div class="sticks-container">`;
+        let s = `<div class="sticks-container" style="min-height:50px; margin-top:0;">`;
         const d = Math.floor(num / 10), u = num % 10;
         for (let i = 0; i < d; i++) s += `<div class="ten-bar flex-shrink-0">${'<div class="bar-segment"></div>'.repeat(10)}</div>`;
         if (u > 0 || (d > 0 && u === 0)) {
@@ -465,7 +467,7 @@ class MathApp {
         opciones.sort(() => Math.random() - 0.5);
 
         this.elements.exerciseContainer.innerHTML = `
-            <div class="flex-row items-center justify-center gap-8 animate-pop" style="width:100%;">
+            <div class="flex-row items-center justify-center gap-4 animate-pop" style="width:100%;">
                 <div style="position:relative;">
                     <svg width="200" height="200" viewBox="0 0 200 200">
                         <circle cx="100" cy="100" r="90" fill="white" stroke="#3b82f6" stroke-width="4"/>
@@ -679,13 +681,13 @@ class MathApp {
         }).join('');
 
         this.elements.exerciseContainer.innerHTML = `
-            <div class="flex-column items-center justify-center gap-6 animate-pop" style="width:100%;">
+            <div class="flex-column items-center justify-center gap-4 animate-pop" style="width:100%;">
                 <div style="text-align:center;">
                     <div style="font-size:1rem; color:#64748b; margin-bottom:0.5rem;">🥤 Crea un batido de valor:</div>
                     <div class="number-box-giant" style="color:#a855f7;">${this.batidoTarget}</div>
                 </div>
                 
-                <div style="background:white; padding:1.5rem; border-radius:20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="background:white; padding:1rem; border-radius:20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="font-size:0.9rem; color:#64748b; margin-bottom:1rem; text-align:center;">Selecciona ingredientes:</div>
                     <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;">
                         ${ingredientsHTML}
@@ -748,7 +750,7 @@ class MathApp {
         let visualHTML = "";
         if (this.showSticksIA) {
             visualHTML = `
-                <div class="flex-row items-center justify-center gap-10 mt-6 animate-pop">
+                <div class="flex-row items-center justify-center gap-6 mt-6 animate-pop">
                     ${this.getSticks(this.val1, '#ef4444')}
                     <div class="text-4xl opacity-50 font-bold">${this.gameMode === 'sumas' ? '+' : '-'}</div>
                     ${this.getSticks(this.val2, '#3b82f6')}
@@ -758,7 +760,7 @@ class MathApp {
 
         this.elements.exerciseContainer.innerHTML = `
             <div class="flex-column items-center justify-center gap-4 animate-pop">
-                <div class="flex-row items-center justify-center gap-6" style="font-size:3rem;">
+                <div class="flex-row items-center justify-center gap-4" style="font-size:3rem;">
                     ${this.colorDigit(this.val1)} 
                     ${this.gameMode === 'sumas' ? '+' : '-'} 
                     ${this.colorDigit(this.val2)} 
@@ -936,14 +938,84 @@ class MathApp {
     initPizarra() {
         if (!this.elements.canvas || !this.elements.ctx) return;
         this.resizeCanvas();
-        // Canvas básico sin dibujo por ahora
+
+        this.isDrawing = false;
+        this.lastX = 0;
+        this.lastY = 0;
+
+        const canvas = this.elements.canvas;
+        const ctx = this.elements.ctx;
+
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 4;
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', (e) => {
+            this.isDrawing = true;
+            [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mousemove', (e) => this.draw(e));
+        canvas.addEventListener('mouseup', () => this.isDrawing = false);
+        canvas.addEventListener('mouseout', () => this.isDrawing = false);
+
+        // Touch Events
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            this.lastX = e.touches[0].clientX - rect.left;
+            this.lastY = e.touches[0].clientY - rect.top;
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            this.draw(e.touches[0]);
+        }, { passive: false });
+        canvas.addEventListener('touchend', () => this.isDrawing = false);
+    }
+
+    draw(e) {
+        if (!this.isDrawing) return;
+        const ctx = this.elements.ctx;
+        const canvas = this.elements.canvas;
+
+        let x = e.offsetX;
+        let y = e.offsetY;
+
+        // Handle Touch coordinates
+        if (x === undefined) {
+            const rect = canvas.getBoundingClientRect();
+            x = e.clientX - rect.left;
+            y = e.clientY - rect.top;
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(this.lastX, this.lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        [this.lastX, this.lastY] = [x, y];
     }
 
     resizeCanvas() {
         if (!this.elements.canvas) return;
         const canvas = this.elements.canvas;
+        // Save current content
+        // const tempCanvas = document.createElement('canvas');
+        // tempCanvas.width = canvas.width;
+        // tempCanvas.height = canvas.height;
+        // tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
+
+        // Restore properties after resize reset
+        if (this.elements.ctx) {
+            this.elements.ctx.strokeStyle = '#2563eb';
+            this.elements.ctx.lineWidth = 4;
+            this.elements.ctx.lineCap = 'round';
+        }
     }
 
     clearCanvas() {

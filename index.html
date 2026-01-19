@@ -567,7 +567,8 @@
 <body>
     <header>
         <div class="header-left" style="display:flex; align-items:center; gap:15px;">
-            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px;">
+            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px; cursor: pointer;"
+                onclick="window.location.reload()">
             <nav id="app-nav" class="hidden">
                 <button class="tab-btn btn-mate active" onclick="showApp('mate', this)">Mates</button>
                 <button class="tab-btn btn-lecto" onclick="showApp('lecto', this)">Letras</button>
@@ -592,11 +593,38 @@
 
     <main>
         <div id="start-screen"
-            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0;">
-            <h1 style="color:#1e293b; margin-bottom:1rem;">¡Bienvenidos a Nexia!</h1>
-            <p style="color:#64748b; margin-bottom:2rem;">Selecciona un alumno para empezar la aventura</p>
-            <button class="btn-primary" style="width:auto; padding:15px 40px;" onclick="openStudentManager()">Elegir
-                Alumno</button>
+            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0; padding: 2rem; text-align: center;">
+            <div
+                style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 800px;">
+                <h1 style="color:#1e293b; margin-bottom:1rem; font-size: 2.5rem;">¡Bienvenidos a Nexia!</h1>
+                <p style="color:#64748b; margin-bottom:2rem; font-size: 1.2rem;">Plataforma Educativa Integral para
+                    Infantil y Primaria</p>
+
+                <div
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; text-align: left;">
+                    <div style="padding: 1rem; background: #eff6ff; border-radius: 12px; border: 1px solid #dbeafe;">
+                        <h3 style="color: #1d4ed8; margin-bottom: 0.5rem;">🔢 MateAula</h3>
+                        <p style="font-size: 0.9rem; color: #475569;">Pizarra digital interactiva con actividades de
+                            lógica, numeración, operaciones y geometría.</p>
+                    </div>
+                    <div style="padding: 1rem; background: #fdf2f8; border-radius: 12px; border: 1px solid #fce7f3;">
+                        <h3 style="color: #be185d; margin-bottom: 0.5rem;">📚 LectoAula</h3>
+                        <p style="font-size: 0.9rem; color: #475569;">Entorno de lectoescritura con ejercicios de
+                            fonología, vocabulario y comprensión lectora.</p>
+                    </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <p style="color: #475569; font-size: 0.95rem;">✨ <b>Gestión de Alumnos:</b> Crea perfiles
+                        personalizados, sigue la evolución de cada estudiante y genera informes detallados.</p>
+                </div>
+
+                <button class="btn-primary"
+                    style="width:auto; padding:15px 40px; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);"
+                    onclick="openStudentManager()">
+                    👥 Comenzar - Elegir Alumno
+                </button>
+            </div>
         </div>
         <iframe id="iframe-mate" src="MateAula/index.html"></iframe>
         <iframe id="iframe-lecto" src="LectoAula/index.html"></iframe>
