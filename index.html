@@ -567,7 +567,8 @@
 <body>
     <header>
         <div class="header-left" style="display:flex; align-items:center; gap:15px;">
-            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px; cursor: pointer;" onclick="openInfo()">
+            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px; cursor: pointer;"
+                onclick="openDashboard()">
             <nav id="app-nav" class="hidden">
                 <button class="tab-btn btn-mate active" onclick="showApp('mate', this)">Mates</button>
                 <button class="tab-btn btn-lecto" onclick="showApp('lecto', this)">Letras</button>
@@ -575,7 +576,7 @@
         </div>
         <div class="header-right">
             <div id="turn-bar" class="turn-bar hidden"></div>
-            <button class="icon-btn" onclick="openEvolution()" title="Evolución y Notas">Evolución</button>
+            <button class="icon-btn" onclick="openDashboard()" title="Tu Progreso">Evolución</button>
             <button class="icon-btn" onclick="openRanking()" title="Ranking">Ranking</button>
             <button class="icon-btn" onclick="openGenerator()" title="Generador de Fichas (PDF)">PDF</button>
             <button class="icon-btn" onclick="openAccessibility()" title="Ajustes de Accesibilidad"
@@ -660,48 +661,136 @@
         </div>
     </div>
 
-    <main>
-        <div id="start-screen"
-            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0;">
-            <h1 style="color:#1e293b; margin-bottom:1rem;">¡Bienvenidos a Nexia!</h1>
-            <p style="color:#64748b; margin-bottom:2rem;">Selecciona un alumno para empezar la aventura</p>
-            <button class="btn-primary" style="width:auto; padding:15px 40px;" onclick="openStudentManager()">Elegir
-                Alumno</button>
+    <!-- DASHBOARD SCREEN (Main Hub after login) -->
+    <div id="dashboard-screen" style="display:none; height:100vh; overflow-y:auto; background:#f1f5f9; padding:2rem;">
+        <div style="max-width:1200px; margin:0 auto;">
+
+            <!-- Welcome Header -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                <div>
+                    <h1 style="margin:0; color:#1e293b; font-size:2rem;">Hola, <span id="dash-student-name"
+                            style="color:#3b82f6;">Alumno</span> 👋</h1>
+                    <p style="margin:0; color:#64748b;">¡Vamos a aprender jugando!</p>
+                </div>
+                <div
+                    style="background:white; padding:10px 20px; border-radius:30px; box-shadow:0 4px 6px rgba(0,0,0,0.05); display:flex; gap:15px; align-items:center;">
+                    <span style="font-size:1.5rem;">⭐</span>
+                    <div>
+                        <div style="font-weight:bold; font-size:1.2rem; color:#f59e0b;" id="dash-points">0</div>
+                        <div style="font-size:0.8rem; color:#94a3b8;">Puntos Totales</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APP LAUNCHERS (Big Buttons) -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem;">
+                <!-- MateAula Card -->
+                <div onclick="launchApp('mate')"
+                    style="background:linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius:20px; padding:2rem; color:white; cursor:pointer; transition:transform 0.2s; box-shadow:0 10px 25px rgba(59, 130, 246, 0.3);"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div>
+                            <div style="font-size:3rem; margin-bottom:1rem;">🔢</div>
+                            <h2 style="margin:0; font-size:2rem;">MateAula</h2>
+                            <p style="opacity:0.9;">Matemáticas divertidas</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.2); padding:10px; border-radius:50%;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LectoAula Card -->
+                <div onclick="launchApp('lecto')"
+                    style="background:linear-gradient(135deg, #ec4899 0%, #db2777 100%); border-radius:20px; padding:2rem; color:white; cursor:pointer; transition:transform 0.2s; box-shadow:0 10px 25px rgba(236, 72, 153, 0.3);"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div>
+                            <div style="font-size:3rem; margin-bottom:1rem;">📚</div>
+                            <h2 style="margin:0; font-size:2rem;">LectoAula</h2>
+                            <p style="opacity:0.9;">Lectura y escritura</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.2); padding:10px; border-radius:50%;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVOLUTION STATS (Moved from Modal) -->
+            <div style="display:grid; grid-template-columns:2fr 1fr; gap:2rem;">
+
+                <!-- Main Stats Panel -->
+                <div style="background:white; border-radius:20px; padding:2rem; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top:0; color:#1e293b; border-bottom:1px solid #e2e8f0; padding-bottom:1rem;">📊 Tu
+                        Progreso</h3>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;">
+                        <div class="stat-card">
+                            <div class="stat-value" id="dash-total-hits">0</div>
+                            <div class="stat-label">Aciertos Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="dash-evolution-rate" style="color:var(--primary);">--</div>
+                            <div class="stat-label">Ritmo de Evolución</div>
+                            <small style="color:#94a3b8; display:block; margin-top:5px;">Comparado con línea
+                                base</small>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top:2rem;">Competencias LOMLOE (Mates)</h4>
+                    <div id="dash-competencies-mate" style="display:grid; gap:10px;"></div>
+
+                    <h4 style="margin-top:2rem;">Competencias Lenguaje</h4>
+                    <div id="dash-competencies-lecto" style="display:grid; gap:10px;"></div>
+                </div>
+
+                <!-- Recent Sessions Panel -->
+                <div style="background:white; border-radius:20px; padding:2rem; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top:0; color:#1e293b; border-bottom:1px solid #e2e8f0; padding-bottom:1rem;">🕒
+                        Historial Reciente</h3>
+                    <div id="dash-sessions-list" style="margin-top:1rem; max-height:400px; overflow-y:auto;">
+                        <div style="text-align:center; color:#94a3b8; padding:2rem;">No hay sesiones recientes</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <iframe id="iframe-mate" src="MateAula/index.html"></iframe>
-        <iframe id="iframe-lecto" src="LectoAula/index.html"></iframe>
+    </div>
+
+    <!-- MAIN APP CONTAINER (Hidden until app launch) -->
+    <main id="app-container" style="display:none; height:100vh;">
+        <button onclick="openDashboard()"
+            style="position:fixed; top:10px; left:10px; z-index:100; background:white; border:2px solid #e2e8f0; padding:8px 15px; border-radius:20px; cursor:pointer; font-weight:bold; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+            ⬅ Volver al Panel
+        </button>
+        <iframe id="iframe-mate" src="MateAula/index.html"
+            style="width:100%; height:100%; border:none; display:none;"></iframe>
+        <iframe id="iframe-lecto" src="LectoAula/index.html"
+            style="width:100%; height:100%; border:none; display:none;"></iframe>
     </main>
 
-    <button onclick="closeModal('modal-evolution')"
-        style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-    </div>
-
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-label">Aciertos Totales</div>
-            <div class="stat-value" id="stat-hits">0</div>
-            <div class="stat-evolution" id="stat-hit-evo"></div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-label">Ritmo de Evolución</div>
-            <div class="stat-value" id="stat-rhythm">--</div>
-            <div class="stat-evolution" id="stat-rhythm-desc">Comparado con línea base</div>
+    <!-- Student Selection Screen (Initial) -->
+    <div id="start-screen"
+        style="height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0;">
+        <div
+            style="background:white; padding:3rem; border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.1); text-align:center; max-width:500px;">
+            <img src="img/nexia_logo.png" alt="Nexia" style="height:100px; margin-bottom:2rem;">
+            <h1 style="color:#1e293b; margin-bottom:0.5rem; font-size:2rem;">¡Hola! ¿Quién eres?</h1>
+            <p style="color:#64748b; margin-bottom:2.5rem; font-size:1.1rem;">Selecciona tu perfil para cargar tus
+                progresos</p>
+            <button class="btn-primary" onclick="openStudentManager()"
+                style="font-size:1.2rem; padding:15px 40px; border-radius:50px;">👤 Elegir Alumno</button>
         </div>
     </div>
 
-    <h3>Competencias LOMLOE (Mates)</h3>
-    <div id="comp-mates"></div>
 
-    <h3 style="margin-top:1.5rem;">Competencias Lenguaje</h3>
-    <div id="comp-lecto"></div>
-
-    <h3 style="margin-top:2rem;">Historial de Sesiones</h3>
-    <div class="history-list" id="evo-history"></div>
-
-    <h3 style="margin-top:2rem;">🏅 Mi Álbum de Logros</h3>
-    <div class="reward-grid" id="reward-list"></div>
-    </div>
-    </div>
 
     <div id="confetti-container" class="confetti"></div>
 
@@ -955,90 +1044,96 @@
             localStorage.setItem('ax_active_id', id);
             const s = students.find(x => x.id === id);
 
-            // Load individual accessibility settings
+            // Load settings
             accessSettings = s.access || JSON.parse(JSON.stringify(DEFAULT_ACCESS));
             applyAccessSettings();
 
+            // Populate badge
             document.getElementById('badge-name').innerText = s.name;
             document.getElementById('badge-avatar').innerText = s.avatar;
-            document.getElementById('app-nav').classList.remove('hidden');
-            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.add('hidden'); // Hide start screen directly
             document.getElementById('turn-bar').classList.remove('hidden');
-            closeModal('modal-students');
-            renderStudents(); renderTurnBar();
 
-            const iframe = document.getElementById('iframe-' + currentApp);
-            iframe.classList.add('active');
-            iframe.contentWindow.postMessage({ type: 'INIT_USER', user: s }, '*');
+            // Go to Dashboard
+            openDashboard();
         }
 
         function showApp(id, btn) {
-            currentApp = id;
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('iframe').forEach(f => f.classList.remove('active'));
-            const iframe = document.getElementById('iframe-' + id);
-            iframe.classList.add('active');
-            const s = students.find(x => x.id === activeId);
-            iframe.contentWindow.postMessage({ type: 'INIT_USER', user: s }, '*');
+            // Updated showApp to work with new layout if called via tab buttons (though dashboard uses launchApp)
+            launchApp(id);
+            if (btn) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
         }
 
-        function openEvolution() {
-            const s = students.find(x => x.id === activeId);
-            document.getElementById('evo-student-name').innerText = "Informe: " + s.name;
+        // --- DASHBOARD RENDER LOGIC ---
+
+        function updateDashboardUI(s) {
+            if (!s) return;
+            document.getElementById('dash-student-name').innerText = s.name;
+            document.getElementById('dash-points').innerText = s.points || 0;
 
             const totalHits = s.history.reduce((a, b) => a + b.hits, 0);
-            const totalAttempts = s.history.reduce((a, b) => a + b.attempts, 0);
-            document.getElementById('stat-hits').innerText = totalHits;
+            document.getElementById('dash-total-hits').innerText = totalHits;
 
-            // Calculate Level & Rhythm
+            // Rhythm / Level
             const level = Math.floor(s.points / 250) + 1;
-            document.getElementById('stat-rhythm').innerText = "NV. " + level;
-            document.getElementById('stat-rhythm-desc').innerText = "Nivel de experiencia";
+            document.getElementById('dash-evolution-rate').innerText = "Nivel " + level;
 
-            // Render Competencies
-            const renderComp = (target, app) => {
-                const html = Object.keys(COMPETENCIES[app]).map(c => {
-                    const acts = COMPETENCIES[app][c];
-                    const logs = s.history.filter(h => h.app === app && acts.some(a => h.activity.includes(a)));
-                    const hits = logs.reduce((a, b) => a + b.hits, 0);
-                    const atts = logs.reduce((a, b) => a + b.attempts, 0);
-                    const pct = atts > 0 ? (hits / atts) * 100 : 0;
+            // Render Sections
+            renderCompetencies(s, 'dash-competencies-mate', 'mate');
+            renderCompetencies(s, 'dash-competencies-lecto', 'lecto');
+            renderSessionHistory(s, 'dash-sessions-list');
+        }
 
-                    let status = "⚪ No iniciado";
-                    let color = "#e2e8f0";
-                    if (atts > 0) {
-                        if (pct >= 90) { status = "🟢 Conseguido"; color = "#22c55e"; }
-                        else if (pct >= 50) { status = "🟡 En proceso"; color = "#f59e0b"; }
-                        else { status = "🔴 Iniciado"; color = "#ef4444"; }
-                    }
+        function renderCompetencies(s, targetId, app) {
+            const html = Object.keys(COMPETENCIES[app]).map(c => {
+                const acts = COMPETENCIES[app][c];
+                const logs = s.history.filter(h => h.app === app && acts.some(a => h.activity.includes(a)));
+                const hits = logs.reduce((a, b) => a + b.hits, 0);
+                const atts = logs.reduce((a, b) => a + b.attempts, 0);
+                const pct = atts > 0 ? (hits / atts) * 100 : 0;
 
-                    return `
-                        <div class="comp-row">
-                            <div class="comp-header"><span>${c}</span><span style="color:${color}">${status} (${pct.toFixed(0)}%)</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%; background:${color}"></div></div>
-                            <div class="hit-rate">${hits} aciertos de ${atts} intentos</div>
-                        </div>`;
-                }).join('');
-                document.getElementById(target).innerHTML = html || "<p style='font-size:0.8rem; color:#888;'>Sin datos todavía</p>";
-            };
-            renderComp('comp-mates', 'mate');
-            renderComp('comp-lecto', 'lecto');
+                let status = "⚪ No iniciado";
+                let color = "#e2e8f0";
+                if (atts > 0) {
+                    if (pct >= 90) { status = "🟢 Conseguido"; color = "#22c55e"; }
+                    else if (pct >= 50) { status = "🟡 En proceso"; color = "#f59e0b"; }
+                    else { status = "🔴 Iniciado"; color = "#ef4444"; }
+                }
 
-            document.getElementById('evo-history').innerHTML = s.history.slice(-10).reverse().map(h => `
-                <div class="history-item">
-                    <span>${new Date(h.date).toLocaleDateString()} - ${h.activity}</span>
-                    <span style="font-weight:bold; color:${h.hits > 0 ? 'var(--success)' : 'var(--error)'}">${h.hits}/${h.attempts}</span>
-                </div>`).join('');
-
-            // Rewards
-            const REWARDS = ['⭐', '🥇', '🚀', '🌈', '🧩', '🎨', '🦁', '🦉', '💎', '🍦'];
-            document.getElementById('reward-list').innerHTML = REWARDS.map((r, i) => {
-                const unlocked = s.points >= (i + 1) * 500;
-                return `<div class="sticker-slot ${unlocked ? 'unlocked' : ''}" title="${(i + 1) * 500} pts">${r}</div>`;
+                return `
+                    <div class="comp-row" style="background:#f8fafc; padding:10px; border-radius:8px; margin-bottom:5px;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.9rem; font-weight:bold; color:#475569;">
+                            <span>${c}</span>
+                            <span style="color:${color}">${status}</span>
+                        </div>
+                        <div style="height:6px; background:#e2e8f0; border-radius:3px; margin-top:5px; overflow:hidden;">
+                            <div style="width:${pct}%; height:100%; background:${color}"></div>
+                        </div>
+                        <div style="font-size:0.75rem; color:#94a3b8; text-align:right; margin-top:2px;">${hits}/${atts} aciertos</div>
+                    </div>`;
             }).join('');
+            document.getElementById(targetId).innerHTML = html || "<small style='color:#94a3b8'>Sin actividad registrada</small>";
+        }
 
-            document.getElementById('modal-evolution').classList.add('active');
+        function renderSessionHistory(s, targetId) {
+            const list = s.history.slice(-10).reverse();
+            if (list.length === 0) {
+                document.getElementById(targetId).innerHTML = "<div style='text-align:center; color:#94a3b8; padding:2rem;'>No hay sesiones recientes</div>";
+                return;
+            }
+            document.getElementById(targetId).innerHTML = list.map(h => `
+                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #f1f5f9; font-size:0.9rem;">
+                    <div>
+                        <div style="font-weight:bold; color:#334155;">${h.activity}</div>
+                        <div style="font-size:0.75rem; color:#94a3b8;">${new Date(h.date).toLocaleDateString()}</div>
+                    </div>
+                    <div style="font-weight:bold; color:${h.hits > 0 ? '#10b981' : '#ef4444'};">
+                        ${h.hits}/${h.attempts}
+                    </div>
+                </div>`).join('');
         }
 
         function openRanking() {
@@ -1079,6 +1174,8 @@
                 activeId = null;
                 localStorage.removeItem('ax_active_id');
                 document.getElementById('app-nav').classList.add('hidden');
+                document.getElementById('dashboard-screen').style.display = 'none';
+                document.getElementById('start-screen').style.display = 'flex';
                 document.getElementById('start-screen').classList.remove('hidden');
                 document.getElementById('turn-bar').classList.add('hidden');
                 document.getElementById('badge-name').innerText = "Alumno";
