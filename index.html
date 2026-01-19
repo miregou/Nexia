@@ -567,8 +567,7 @@
 <body>
     <header>
         <div class="header-left" style="display:flex; align-items:center; gap:15px;">
-            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px; cursor: pointer;"
-                onclick="window.location.reload()">
+            <img src="img/nexia_logo.png" alt="Nexia Logo" style="height: 100px; cursor: pointer;" onclick="openInfo()">
             <nav id="app-nav" class="hidden">
                 <button class="tab-btn btn-mate active" onclick="showApp('mate', this)">Mates</button>
                 <button class="tab-btn btn-lecto" onclick="showApp('lecto', this)">Letras</button>
@@ -591,79 +590,117 @@
         </div>
     </header>
 
+    <!-- INFO SCREEN (Hidden by default) -->
+    <div id="info-screen"
+        style="display:none; position:fixed; inset:0; background:white; z-index:200; overflow-y:auto;">
+        <div style="max-width:900px; margin:0 auto; padding:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                <img src="img/nexia_logo.png" alt="Nexia" style="height:80px;">
+                <button onclick="closeInfo()" class="btn-primary" style="width:auto; padding:10px 20px;">⬅ Volver al
+                    Inicio</button>
+            </div>
+
+            <div style="text-align:center; margin-bottom:3rem;">
+                <h1 style="font-size:2.5rem; color:#1e293b; margin-bottom:1rem;">Plataforma Educativa Integral</h1>
+                <p style="font-size:1.2rem; color:#64748b; max-width:700px; margin:0 auto;">
+                    Nexia fusiona el aprendizaje de matemáticas y lectoescritura en un entorno gamificado, accesible y
+                    adaptativo.
+                </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem;">
+                <div style="background:#eff6ff; padding:2rem; border-radius:20px; border:2px solid #dbeafe;">
+                    <div style="font-size:3rem; margin-bottom:1rem;">🔢</div>
+                    <h2 style="color:#1d4ed8; margin-bottom:1rem;">MateAula</h2>
+                    <ul style="list-style:none; padding:0; color:#475569; line-height:1.8;">
+                        <li>✅ <b>Numeración:</b> Del 0 al 99 con bloques y recta numérica.</li>
+                        <li>✅ <b>Cálculo:</b> Sumas y restas con fases de aprendizaje.</li>
+                        <li>✅ <b>Lógica:</b> Series, clasificación y geometría espacial.</li>
+                        <li>✅ <b>Pizarra Mágica:</b> Espacio libre para trazar y resolver.</li>
+                    </ul>
+                </div>
+
+                <div style="background:#fdf2f8; padding:2rem; border-radius:20px; border:2px solid #fce7f3;">
+                    <div style="font-size:3rem; margin-bottom:1rem;">📚</div>
+                    <h2 style="color:#be185d; margin-bottom:1rem;">LectoAula</h2>
+                    <ul style="list-style:none; padding:0; color:#475569; line-height:1.8;">
+                        <li>✅ <b>Conciencia Fonológica:</b> Sonidos, rimas y sílabas.</li>
+                        <li>✅ <b>Vocabulario:</b> Asociación imagen-palabra con bits de inteligencia.</li>
+                        <li>✅ <b>Escritura:</b> Trazado de letras y composición de palabras.</li>
+                        <li>✅ <b>Comprensión:</b> Frases locas y lectura exploradora.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background:#f8fafc; padding:2rem; border-radius:20px; text-align:center; margin-bottom:3rem;">
+                <h2 style="color:#0f172a; margin-bottom:1rem;">🚀 Herramientas Profesionales</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+                    <div style="padding:1rem;">
+                        <span style="font-size:2rem;">📊</span>
+                        <h3 style="margin:10px 0;">Seguimiento</h3>
+                        <p style="font-size:0.9rem; color:#64748b;">Informes detallados de aciertos y evolución.</p>
+                    </div>
+                    <div style="padding:1rem;">
+                        <span style="font-size:2rem;">♿</span>
+                        <h3 style="margin:10px 0;">Accesibilidad</h3>
+                        <p style="font-size:0.9rem; color:#64748b;">Barrido visual y síntesis de voz integrados.</p>
+                    </div>
+                    <div style="padding:1rem;">
+                        <span style="font-size:2rem;">🖨️</span>
+                        <h3 style="margin:10px 0;">Generador PDF</h3>
+                        <p style="font-size:0.9rem; color:#64748b;">Crea fichas imprimibles personalizadas al instante.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; color:#94a3b8; font-size:0.9rem;">
+                &copy; 2026 Nexia Educación - Todos los derechos reservados
+            </div>
+        </div>
+    </div>
+
     <main>
         <div id="start-screen"
-            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0; padding: 2rem; text-align: center;">
-            <div
-                style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 800px;">
-                <h1 style="color:#1e293b; margin-bottom:1rem; font-size: 2.5rem;">¡Bienvenidos a Nexia!</h1>
-                <p style="color:#64748b; margin-bottom:2rem; font-size: 1.2rem;">Plataforma Educativa Integral para
-                    Infantil y Primaria</p>
-
-                <div
-                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; text-align: left;">
-                    <div style="padding: 1rem; background: #eff6ff; border-radius: 12px; border: 1px solid #dbeafe;">
-                        <h3 style="color: #1d4ed8; margin-bottom: 0.5rem;">🔢 MateAula</h3>
-                        <p style="font-size: 0.9rem; color: #475569;">Pizarra digital interactiva con actividades de
-                            lógica, numeración, operaciones y geometría.</p>
-                    </div>
-                    <div style="padding: 1rem; background: #fdf2f8; border-radius: 12px; border: 1px solid #fce7f3;">
-                        <h3 style="color: #be185d; margin-bottom: 0.5rem;">📚 LectoAula</h3>
-                        <p style="font-size: 0.9rem; color: #475569;">Entorno de lectoescritura con ejercicios de
-                            fonología, vocabulario y comprensión lectora.</p>
-                    </div>
-                </div>
-
-                <div style="background: #f8fafc; padding: 1rem; border-radius: 12px; margin-bottom: 2rem;">
-                    <p style="color: #475569; font-size: 0.95rem;">✨ <b>Gestión de Alumnos:</b> Crea perfiles
-                        personalizados, sigue la evolución de cada estudiante y genera informes detallados.</p>
-                </div>
-
-                <button class="btn-primary"
-                    style="width:auto; padding:15px 40px; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);"
-                    onclick="openStudentManager()">
-                    👥 Comenzar - Elegir Alumno
-                </button>
-            </div>
+            style="height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#e2e8f0;">
+            <h1 style="color:#1e293b; margin-bottom:1rem;">¡Bienvenidos a Nexia!</h1>
+            <p style="color:#64748b; margin-bottom:2rem;">Selecciona un alumno para empezar la aventura</p>
+            <button class="btn-primary" style="width:auto; padding:15px 40px;" onclick="openStudentManager()">Elegir
+                Alumno</button>
         </div>
         <iframe id="iframe-mate" src="MateAula/index.html"></iframe>
         <iframe id="iframe-lecto" src="LectoAula/index.html"></iframe>
     </main>
 
-    <!-- Evaluation Modal -->
-    <div class="modal" id="modal-evolution">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="evo-student-name">Informe de Evolución</h2>
-                <button onclick="closeModal('modal-evolution')"
-                    style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-            </div>
+    <button onclick="closeModal('modal-evolution')"
+        style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
+    </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Aciertos Totales</div>
-                    <div class="stat-value" id="stat-hits">0</div>
-                    <div class="stat-evolution" id="stat-hit-evo"></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Ritmo de Evolución</div>
-                    <div class="stat-value" id="stat-rhythm">--</div>
-                    <div class="stat-evolution" id="stat-rhythm-desc">Comparado con línea base</div>
-                </div>
-            </div>
-
-            <h3>Competencias LOMLOE (Mates)</h3>
-            <div id="comp-mates"></div>
-
-            <h3 style="margin-top:1.5rem;">Competencias Lenguaje</h3>
-            <div id="comp-lecto"></div>
-
-            <h3 style="margin-top:2rem;">Historial de Sesiones</h3>
-            <div class="history-list" id="evo-history"></div>
-
-            <h3 style="margin-top:2rem;">🏅 Mi Álbum de Logros</h3>
-            <div class="reward-grid" id="reward-list"></div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Aciertos Totales</div>
+            <div class="stat-value" id="stat-hits">0</div>
+            <div class="stat-evolution" id="stat-hit-evo"></div>
         </div>
+        <div class="stat-card">
+            <div class="stat-label">Ritmo de Evolución</div>
+            <div class="stat-value" id="stat-rhythm">--</div>
+            <div class="stat-evolution" id="stat-rhythm-desc">Comparado con línea base</div>
+        </div>
+    </div>
+
+    <h3>Competencias LOMLOE (Mates)</h3>
+    <div id="comp-mates"></div>
+
+    <h3 style="margin-top:1.5rem;">Competencias Lenguaje</h3>
+    <div id="comp-lecto"></div>
+
+    <h3 style="margin-top:2rem;">Historial de Sesiones</h3>
+    <div class="history-list" id="evo-history"></div>
+
+    <h3 style="margin-top:2rem;">🏅 Mi Álbum de Logros</h3>
+    <div class="reward-grid" id="reward-list"></div>
+    </div>
     </div>
 
     <div id="confetti-container" class="confetti"></div>
@@ -1158,6 +1195,14 @@
             genCase = c;
             document.getElementById('btn-case-min').classList.toggle('active', c === 'minusculas');
             document.getElementById('btn-case-may').classList.toggle('active', c === 'mayusculas');
+        }
+
+        function openInfo() {
+            document.getElementById('info-screen').style.display = 'block';
+        }
+
+        function closeInfo() {
+            document.getElementById('info-screen').style.display = 'none';
         }
 
         function formatGen(t) { return genCase === 'mayusculas' ? t.toUpperCase() : t.toLowerCase(); }
