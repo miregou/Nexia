@@ -25,8 +25,16 @@ class MathApp {
         this.caminoNumbers = [];
         this.caminoGrid = [];
 
+        // Global Activity Configuration (Dice, Whiteboard, Visual Aids)
+        this.config = {
+            diceVisible: true,           // Show/Hide dice in activities
+            pizarraVisible: true,        // Show/Hide whiteboard
+            visualAidsEnabled: true,     // Show/Hide sticks/blocks representations
+            showSticks: true             // Specifically for sticks in number activities
+        };
+
         this.isRolling = { 1: false, 2: false };
-        this.showSticksIA = true;
+        this.showSticksIA = this.config.showSticks;
 
         this.elements = {
             viewMenu: document.getElementById('view-menu'),
@@ -249,7 +257,8 @@ class MathApp {
             title.innerText = "⚙️ Configuración del Puzzle";
             this.renderConfigPuzzle(options);
         } else {
-            modal.style.display = 'none';
+            title.innerText = "⚙️ Configuración de Actividad";
+            this.renderConfigGeneral(options);
         }
     }
 
@@ -312,10 +321,47 @@ class MathApp {
     }
 
     setConfig(key, val) {
+        // Handle global config keys
+        if (['diceVisible', 'pizarraVisible', 'visualAidsEnabled', 'showSticks'].includes(key)) {
+            this.config[key] = (val === 'true' || val === true);
+            if (key === 'showSticks') this.showSticksIA = this.config[key];
+            this.openConfigModal(); // Re-render
+            this.generateExercise(); // Re-render exercise
+            return;
+        }
+
+        // Handle activity-specific config
         const settings = this.gameMode.includes('camino') ? this.caminoSettings : this.puzzleSettings;
         if (key === 'rows' || key === 'cols' || key === 'step') val = parseInt(val);
         settings[key] = val;
         this.openConfigModal(); // Re-render
+    }
+
+    renderConfigGeneral(container) {
+        const c = this.config;
+        container.innerHTML = `
+            <div class="config-group">
+                <div class="config-group-title">🎲 Dados</div>
+                <div class="config-row">
+                    <button onclick="setConfig('diceVisible', true)" class="config-btn ${c.diceVisible ? 'active' : ''}">Mostrar Dados</button>
+                    <button onclick="setConfig('diceVisible', false)" class="config-btn ${!c.diceVisible ? 'active' : ''}">Ocultar Dados</button>
+                </div>
+            </div>
+            <div class="config-group">
+                <div class="config-group-title">🖍️ Pizarra</div>
+                <div class="config-row">
+                    <button onclick="setConfig('pizarraVisible', true)" class="config-btn ${c.pizarraVisible ? 'active' : ''}">Mostrar Pizarra</button>
+                    <button onclick="setConfig('pizarraVisible', false)" class="config-btn ${!c.pizarraVisible ? 'active' : ''}">Ocultar Pizarra</button>
+                </div>
+            </div>
+            <div class="config-group">
+                <div class="config-group-title">📊 Apoyos Visuales (Palitos/Bloques)</div>
+                <div class="config-row">
+                    <button onclick="setConfig('visualAidsEnabled', true)" class="config-btn ${c.visualAidsEnabled ? 'active' : ''}">Mostrar Apoyos</button>
+                    <button onclick="setConfig('visualAidsEnabled', false)" class="config-btn ${!c.visualAidsEnabled ? 'active' : ''}">Ocultar Apoyos</button>
+                </div>
+            </div>
+        `;
     }
 
     closeConfigModal() {
