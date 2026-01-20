@@ -76,8 +76,25 @@ class MathApp {
 
     init() {
         this.bindEvents();
-        setTimeout(() => { if (this.elements.canvas) this.initPizarra(); }, 100);
+        // Wait for DOM to be fully ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.initPizarraWhenReady());
+        } else {
+            this.initPizarraWhenReady();
+        }
         window.addEventListener('resize', () => this.resizeCanvas());
+    }
+
+    initPizarraWhenReady() {
+        setTimeout(() => {
+            if (this.elements.canvas) {
+                this.initPizarra();
+                console.log('✅ Pizarra inicializada correctamente');
+            } else {
+                console.warn('⚠️ Canvas no encontrado, reintentando...');
+                setTimeout(() => this.initPizarraWhenReady(), 200);
+            }
+        }, 100);
     }
 
     bindEvents() {
@@ -106,62 +123,6 @@ class MathApp {
         window.setConfig = (key, val) => this.setConfig(key, val);
         window.openCurriculumModal = () => this.openCurriculumModal();
         window.closeCurriculumModal = () => this.closeCurriculumModal();
-
-        // Zoom controls
-        window.increaseZoom = () => this.increaseZoom();
-        window.decreaseZoom = () => this.decreaseZoom();
-
-        // Initialize zoom from localStorage
-        this.initZoom();
-    }
-
-    // Zoom Control Methods
-    initZoom() {
-        const savedZoom = localStorage.getItem('mateaula-zoom');
-        if (savedZoom) {
-            this.setZoom(parseInt(savedZoom));
-        } else {
-            this.currentZoom = 100;
-        }
-    }
-
-    increaseZoom() {
-        const levels = [75, 90, 100, 110, 125];
-        const currentIndex = levels.indexOf(this.currentZoom);
-        if (currentIndex < levels.length - 1) {
-            this.setZoom(levels[currentIndex + 1]);
-        }
-    }
-
-    decreaseZoom() {
-        const levels = [75, 90, 100, 110, 125];
-        const currentIndex = levels.indexOf(this.currentZoom);
-        if (currentIndex > 0) {
-            this.setZoom(levels[currentIndex - 1]);
-        }
-    }
-
-    setZoom(level) {
-        this.currentZoom = level;
-        const scale = level / 100;
-        document.body.style.transform = `scale(${scale})`;
-        document.body.style.transformOrigin = 'top center';
-
-        // Update display
-        const zoomDisplay = document.getElementById('zoom-level');
-        if (zoomDisplay) {
-            zoomDisplay.textContent = `${level}%`;
-        }
-
-        // Save to localStorage
-        localStorage.setItem('mateaula-zoom', level);
-
-        // Adjust for overflow when zoomed out
-        if (level < 100) {
-            document.body.style.minHeight = `${100 / scale}vh`;
-        } else {
-            document.body.style.minHeight = '100vh';
-        }
     }
 
 
@@ -1094,10 +1055,12 @@ class MathApp {
             this.isDrawing = true;
             canvas.style.cursor = 'crosshair';
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+            console.log('🖱️ MOUSEDOWN -', 'Drawing:', this.isDrawing, 'Pos:', this.lastX, this.lastY);
         });
 
         canvas.addEventListener('mousemove', (e) => {
             if (this.isDrawing) {
+                console.log('🖱️ MOUSEMOVE - Drawing line');
                 this.draw(e);
             }
         });
@@ -1105,11 +1068,13 @@ class MathApp {
         canvas.addEventListener('mouseup', () => {
             this.isDrawing = false;
             canvas.style.cursor = 'crosshair';
+            console.log('🖱️ MOUSEUP - Drawing stopped');
         });
 
         canvas.addEventListener('mouseleave', () => {
             this.isDrawing = false;
             canvas.style.cursor = 'crosshair';
+            console.log('🖱️ MOUSELEAVE - Drawing stopped');
         });
 
         // Touch Events
