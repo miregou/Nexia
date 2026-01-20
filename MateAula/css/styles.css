@@ -403,7 +403,7 @@ body {
 
 /* --- PIZARRA PANEL --- */
 #pizarra-container {
-    height: 70%;
+    height: 60%;
     background: var(--white);
     border: 3px dashed var(--neutral-300);
     border-radius: var(--radius-md);
@@ -439,7 +439,7 @@ body {
 
 /* Keypad */
 #input-methods {
-    height: 30%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -447,9 +447,9 @@ body {
 
 .keypad-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
     height: 100%;
 }
 

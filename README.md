@@ -1,4 +1,4 @@
-# 🎓 CHUS - Nexia Educación
+# 🎓  Nexia Educación
 
 **Plataforma educativa integral para 1º de Primaria**
 
