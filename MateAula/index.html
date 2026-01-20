@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nexia: Mates - Pizarra Multiactividad</title>
-    <link rel="stylesheet" href="css/styles.css?v=10.0">
+    <link rel="stylesheet" href="css/styles.css?v=9.0">
 </head>
 
 <body>
@@ -164,6 +164,13 @@
                     <button onclick="setDifficulty(1)" id="diff-1" class="difficulty-btn active">N1</button>
                     <button onclick="setDifficulty(2)" id="diff-2" class="difficulty-btn">N2</button>
                     <button onclick="setDifficulty(3)" id="diff-3" class="difficulty-btn">N3</button>
+                </div>
+                <div class="flex items-center gap-1" id="zoom-controls">
+                    <button onclick="decreaseZoom()" class="btn-nav" style="padding:2px 6px;"
+                        title="Reducir zoom">🔍-</button>
+                    <span id="zoom-level" style="font-size:0.7rem; font-weight:bold; color:white;">100%</span>
+                    <button onclick="increaseZoom()" class="btn-nav" style="padding:2px 6px;"
+                        title="Aumentar zoom">🔍+</button>
                 </div>
                 <div class="score-badge">
                     <button onclick="openConfigModal()" class="btn-nav" style="padding:2px 6px; margin-right:4px;"
