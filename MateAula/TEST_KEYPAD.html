@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Keypad Test</title>
+    <link rel="stylesheet" href="css/styles.css?v=9.1">
+    <style>
+        body {
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>Test de Teclado</h1>
+        <p>Debería verse en 2 filas (6 columnas cada una):</p>
+
+        <div class="keypad-grid" style="height: 120px;">
+            <button class="keypad-btn">1</button>
+            <button class="keypad-btn">2</button>
+            <button class="keypad-btn">3</button>
+            <button class="keypad-btn">4</button>
+            <button class="keypad-btn">5</button>
+            <button class="keypad-btn btn-backspace">⌫</button>
+            <button class="keypad-btn">6</button>
+            <button class="keypad-btn">7</button>
+            <button class="keypad-btn">8</button>
+            <button class="keypad-btn">9</button>
+            <button class="keypad-btn">0</button>
+            <button class="keypad-btn btn-ok">OK</button>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 12px; color: #666;">
+            Si ves 2 filas de 6 botones, el CSS funciona correctamente.<br>
+            Si ves 3 o más filas, hay un problema.
+        </p>
+    </div>
+</body>
+
+</html>
