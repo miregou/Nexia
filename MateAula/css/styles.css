@@ -450,7 +450,7 @@ body {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 1fr;
     gap: 6px;
-    height: 50%;
+    height: 100%;
 }
 
 .keypad-btn {

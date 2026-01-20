@@ -179,6 +179,13 @@
                 <div class="panel panel-left">
                     <div id="instruction" class="instruction-pill instruction-neutral">...</div>
                     <div id="dice-section"></div>
+                    <div id="action-buttons"
+                        style="display: flex; gap: 10px; justify-content: center; padding: 8px 10px;">
+                        <button onclick="backspace()" class="keypad-btn btn-backspace"
+                            style="flex: 1; max-width: 200px; font-size: 0.9rem;">⌫ BORRAR</button>
+                        <button onclick="checkAnswerIA()" id="check-btn" class="keypad-btn btn-ok"
+                            style="flex: 1; max-width: 200px; font-size: 0.9rem;">✓ COMPROBAR</button>
+                    </div>
                     <div id="exercise-container"></div>
                 </div>
 
@@ -207,27 +214,20 @@
                             <button onclick="checkAnswerIA()" id="check-btn" class="keypad-btn btn-ok"
                                 style="flex: 1; max-width: 200px;">✓ COMPROBAR</button>
                         </div>
-                        <div id="symbol-keypad" class="hidden symbol-grid" style="gap:1.5rem;">
-                            <!-- LESS THAN: Blue -->
-                            <button onclick="checkComparison('<')" class="keypad-btn text-5xl" id="btn-lt"
-                                style="color:var(--primary); font-weight:800; font-size:4rem;">&lt;</button>
+                        style="color:var(--success); font-weight:800; font-size:4rem;">=</button>
 
-                            <!-- EQUAL: Green -->
-                            <button onclick="checkComparison('=')" class="keypad-btn text-5xl"
-                                style="color:var(--success); font-weight:800; font-size:4rem;">=</button>
-
-                            <!-- GREATER THAN: Red + Crocodile -->
-                            <button onclick="checkComparison('>')"
-                                class="keypad-btn flex-col items-center justify-center p-0" id="btn-gt"
-                                style="color:var(--error); font-weight:800; line-height:1; gap:0;">
-                                <span style="font-size:4rem;">&gt;</span>
-                                <span style="font-size:2rem; margin-top:-10px;">🐊</span>
-                            </button>
-                        </div>
+                        <!-- GREATER THAN: Red + Crocodile -->
+                        <button onclick="checkComparison('>')"
+                            class="keypad-btn flex-col items-center justify-center p-0" id="btn-gt"
+                            style="color:var(--error); font-weight:800; line-height:1; gap:0;">
+                            <span style="font-size:4rem;">&gt;</span>
+                            <span style="font-size:2rem; margin-top:-10px;">🐊</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- MODAL IA -->
