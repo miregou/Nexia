@@ -1,0 +1,609 @@
+/* ===== RESPONSIVE ADAPTATIONS FOR SMARTBOARDS/TABLETS ===== */
+/* Ultra-aggressive sizing to ensure NO OVERFLOW on classroom whiteboards */
+
+@media screen and (max-height: 1080px) {
+    /* Full HD smartboards (1920x1080) - Aggressive */
+
+    .app-header {
+        padding: 0.4rem 0.85rem;
+    }
+
+    .app-title {
+        font-size: 1.85rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .game-header {
+        min-height: 38px;
+        padding: 0.18rem 0.6rem;
+    }
+
+    .btn-nav {
+        padding: 0.36rem 0.7rem;
+        font-size: 0.68rem;
+    }
+
+    .difficulty-btn {
+        padding: 0.22rem 0.55rem;
+        font-size: 0.62rem;
+    }
+
+    .score-badge {
+        font-size: 0.75rem;
+        padding: 0.22rem 0.6rem;
+    }
+
+    .main-layout {
+        padding: 0.7rem;
+        gap: 0.7rem;
+    }
+
+    .instruction-pill {
+        padding: 0.32rem 0.95rem;
+        font-size: 0.8rem;
+        margin: 0 auto 0.35rem;
+    }
+
+    #exercise-container {
+        max-height: calc(100vh - 110px);
+        padding: 0.18rem 0.38rem;
+    }
+
+    .pizarra-header {
+        padding: 0.35rem 0.6rem;
+    }
+
+    .pizarra-label {
+        font-size: 0.68rem;
+    }
+
+    .pen-btn {
+        width: 25px;
+        height: 25px;
+    }
+
+    .btn-clear {
+        font-size: 0.62rem;
+        padding: 0.3rem 0.5rem;
+    }
+
+    .btn-check {
+        padding: 0.65rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-game-action {
+        padding: 0.5rem 1.75rem;
+        font-size: 0.85rem;
+    }
+
+    .model-word {
+        font-size: 2.6rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .model-word-large {
+        font-size: 3rem;
+        padding: 1.1rem 2.2rem;
+    }
+
+    .word-with-gap {
+        font-size: 2.4rem;
+    }
+
+    .syllable-card {
+        padding: 0.8rem 1.25rem;
+        font-size: 1.55rem;
+    }
+
+    .letter-cell {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+    }
+
+    .count-btn {
+        width: 62px;
+        height: 62px;
+        font-size: 1.55rem;
+    }
+
+    .image-card {
+        min-width: 68px;
+        min-height: 68px;
+        font-size: clamp(1.75rem, 6.5vh, 3rem);
+    }
+}
+
+@media screen and (max-height: 900px) {
+    /* Compact smartboards - Very Aggressive */
+
+    .app-header {
+        padding: 0.35rem 0.8rem;
+    }
+
+    .app-title {
+        font-size: 1.7rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .menu-grid {
+        padding: 1.15rem;
+        gap: 0.8rem;
+    }
+
+    .menu-card {
+        padding: 0.95rem 0.6rem;
+        gap: 0.6rem;
+    }
+
+    .icon-box svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .game-header {
+        min-height: 36px;
+        padding: 0.18rem 0.55rem;
+    }
+
+    .btn-nav {
+        padding: 0.32rem 0.65rem;
+        font-size: 0.66rem;
+    }
+
+    .difficulty-btn {
+        padding: 0.2rem 0.52rem;
+        font-size: 0.6rem;
+    }
+
+    .score-badge {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.55rem;
+    }
+
+    .main-layout {
+        padding: 0.65rem;
+        gap: 0.65rem;
+    }
+
+    .instruction-pill {
+        padding: 0.28rem 0.88rem;
+        font-size: 0.75rem;
+        margin: 0 auto 0.32rem;
+    }
+
+    #exercise-container {
+        max-height: calc(100vh - 108px);
+        padding: 0.16rem 0.36rem;
+    }
+
+    .pizarra-header {
+        padding: 0.32rem 0.58rem;
+    }
+
+    .pizarra-label {
+        font-size: 0.66rem;
+    }
+
+    .pen-btn {
+        width: 24px;
+        height: 24px;
+    }
+
+    .btn-clear {
+        font-size: 0.6rem;
+        padding: 0.28rem 0.48rem;
+    }
+
+    .btn-check {
+        padding: 0.62rem 1.9rem;
+        font-size: 0.88rem;
+    }
+
+    .btn-game-action {
+        padding: 0.48rem 1.68rem;
+        font-size: 0.82rem;
+    }
+
+    .model-word {
+        font-size: 2.5rem;
+        padding: 0.72rem 1.45rem;
+    }
+
+    .model-word-large {
+        font-size: 2.9rem;
+        padding: 1.08rem 2.15rem;
+    }
+
+    .word-with-gap {
+        font-size: 2.3rem;
+    }
+
+    .syllable-card {
+        padding: 0.78rem 1.22rem;
+        font-size: 1.52rem;
+    }
+
+    .syllable-container {
+        gap: 0.62rem;
+        padding: 0.82rem;
+    }
+
+    .letter-cell {
+        width: 42px;
+        height: 42px;
+        font-size: 1.28rem;
+        gap: 5px;
+    }
+
+    .count-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.52rem;
+    }
+
+    .image-card {
+        min-width: 66px;
+        min-height: 66px;
+        font-size: clamp(1.68rem, 6.2vh, 2.9rem);
+        padding: 0.62rem;
+    }
+
+    .word-card {
+        font-size: clamp(0.88rem, 3.4vh, 1.32rem);
+        padding: 0.44rem 0.88rem;
+    }
+}
+
+@media screen and (max-height: 768px) {
+    /* Small screens - Ultra Aggressive */
+
+    .app-header {
+        padding: 0.28rem 0.68rem;
+    }
+
+    .app-title {
+        font-size: 1.55rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.66rem;
+    }
+
+    .menu-grid {
+        padding: 1rem;
+        gap: 0.72rem;
+    }
+
+    .menu-card {
+        padding: 0.88rem 0.55rem;
+        gap: 0.55rem;
+    }
+
+    .icon-box svg {
+        width: 46px;
+        height: 46px;
+    }
+
+    .game-header {
+        min-height: 34px;
+        padding: 0.14rem 0.52rem;
+    }
+
+    .btn-nav {
+        padding: 0.28rem 0.62rem;
+        font-size: 0.64rem;
+    }
+
+    .difficulty-btn {
+        padding: 0.18rem 0.48rem;
+        font-size: 0.58rem;
+    }
+
+    .score-badge {
+        font-size: 0.7rem;
+        padding: 0.18rem 0.52rem;
+    }
+
+    .main-layout {
+        padding: 0.58rem;
+        gap: 0.58rem;
+    }
+
+    .instruction-pill {
+        padding: 0.24rem 0.78rem;
+        font-size: 0.72rem;
+        margin: 0 auto 0.28rem;
+    }
+
+    #exercise-container {
+        max-height: calc(100vh - 102px);
+        padding: 0.14rem 0.32rem;
+    }
+
+    .pizarra-header {
+        padding: 0.28rem 0.52rem;
+    }
+
+    .pizarra-label {
+        font-size: 0.64rem;
+    }
+
+    .pen-btn {
+        width: 23px;
+        height: 23px;
+        border-width: 2px;
+    }
+
+    .btn-clear {
+        font-size: 0.58rem;
+        padding: 0.26rem 0.44rem;
+    }
+
+    .btn-check {
+        padding: 0.58rem 1.75rem;
+        font-size: 0.84rem;
+    }
+
+    .btn-game-action {
+        padding: 0.44rem 1.55rem;
+        font-size: 0.78rem;
+    }
+
+    .model-word {
+        font-size: 2.2rem;
+        padding: 0.65rem 1.3rem;
+    }
+
+    .model-word-large {
+        font-size: 2.6rem;
+        padding: 0.95rem 1.95rem;
+    }
+
+    .word-with-gap {
+        font-size: 2rem;
+    }
+
+    .syllable-card {
+        padding: 0.7rem 1.1rem;
+        font-size: 1.4rem;
+    }
+
+    .syllable-container {
+        gap: 0.6rem;
+        padding: 0.8rem;
+    }
+
+    .letter-cell {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        gap: 4px;
+    }
+
+    .letter-grid {
+        gap: 4px;
+        padding: 0.8rem;
+    }
+
+    .count-btn {
+        width: 57px;
+        height: 57px;
+        font-size: 1.45rem;
+    }
+
+    .image-card {
+        min-width: 62px;
+        min-height: 62px;
+        font-size: clamp(1.55rem, 5.8vh, 2.65rem);
+        padding: 0.6rem;
+    }
+
+    .word-card {
+        font-size: clamp(0.85rem, 3.2vh, 1.25rem);
+        padding: 0.42rem 0.82rem;
+    }
+
+    .category-box {
+        min-width: 165px;
+        min-height: 185px;
+        padding: 0.88rem;
+    }
+
+    .memory-grid {
+        gap: 0.68rem;
+        padding: 0.88rem;
+    }
+
+    .memory-card {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    /* Very small displays - Extreme Compression */
+
+    .app-header {
+        padding: 0.25rem 0.62rem;
+    }
+
+    .app-title {
+        font-size: 1.42rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.62rem;
+        margin-top: 0.18rem;
+    }
+
+    .menu-grid {
+        padding: 0.92rem;
+        gap: 0.68rem;
+    }
+
+    .menu-card {
+        padding: 0.8rem 0.52rem;
+        gap: 0.52rem;
+    }
+
+    .icon-box svg {
+        width: 43px;
+        height: 43px;
+    }
+
+    .menu-title {
+        font-size: 0.72rem;
+    }
+
+    .game-header {
+        min-height: 32px;
+        padding: 0.11rem 0.48rem;
+    }
+
+    .btn-nav {
+        padding: 0.24rem 0.58rem;
+        font-size: 0.61rem;
+    }
+
+    .difficulty-btn {
+        padding: 0.16rem 0.44rem;
+        font-size: 0.56rem;
+    }
+
+    .score-badge {
+        font-size: 0.68rem;
+        padding: 0.16rem 0.48rem;
+    }
+
+    .main-layout {
+        padding: 0.48rem;
+        gap: 0.52rem;
+    }
+
+    .instruction-pill {
+        padding: 0.2rem 0.68rem;
+        font-size: 0.68rem;
+        margin: 0 auto 0.24rem;
+    }
+
+    #exercise-container {
+        max-height: calc(100vh - 96px);
+        padding: 0.11rem 0.28rem;
+    }
+
+    .pizarra-header {
+        padding: 0.24rem 0.48rem;
+    }
+
+    .pizarra-label {
+        font-size: 0.61rem;
+    }
+
+    .pen-btn {
+        width: 21px;
+        height: 21px;
+        border-width: 2px;
+    }
+
+    .btn-clear {
+        font-size: 0.56rem;
+        padding: 0.24rem 0.38rem;
+    }
+
+    .btn-check {
+        padding: 0.52rem 1.55rem;
+        font-size: 0.78rem;
+    }
+
+    .btn-game-action {
+        padding: 0.38rem 1.35rem;
+        font-size: 0.72rem;
+    }
+
+    .model-word {
+        font-size: 1.95rem;
+        padding: 0.58rem 1.15rem;
+    }
+
+    .model-word-large {
+        font-size: 2.3rem;
+        padding: 0.82rem 1.75rem;
+    }
+
+    .word-with-gap {
+        font-size: 1.85rem;
+    }
+
+    .syllable-card {
+        padding: 0.62rem 0.98rem;
+        font-size: 1.28rem;
+    }
+
+    .syllable-container {
+        gap: 0.52rem;
+        padding: 0.72rem;
+    }
+
+    .letter-cell {
+        width: 37px;
+        height: 37px;
+        font-size: 1.12rem;
+        gap: 4px;
+    }
+
+    .letter-grid {
+        gap: 4px;
+        padding: 0.82rem;
+    }
+
+    .count-btn {
+        width: 54px;
+        height: 54px;
+        font-size: 1.32rem;
+    }
+
+    .image-card {
+        min-width: 58px;
+        min-height: 58px;
+        font-size: clamp(1.38rem, 4.9vh, 2.35rem);
+        padding: 0.52rem;
+    }
+
+    .word-card {
+        font-size: clamp(0.78rem, 2.9vh, 1.18rem);
+        padding: 0.38rem 0.78rem;
+    }
+
+    .category-box {
+        min-width: 155px;
+        min-height: 175px;
+        padding: 0.82rem;
+    }
+
+    .memory-grid {
+        gap: 0.62rem;
+        padding: 0.82rem;
+    }
+
+    .memory-card {
+        font-size: 1.65rem;
+    }
+}
+
+/* Ensure no accidental zoom on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    * {
+        touch-action: manipulation;
+    }
+
+    #canvas-pizarra {
+        touch-action: none !important;
+    }
+}

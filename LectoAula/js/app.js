@@ -18,6 +18,10 @@ class LectoApp {
             case: 'minusculas' // 'minusculas', 'mayusculas'
         };
 
+        // OPTIMIZACIÓN: Cleanup tasks y handlers
+        this.cleanupTasks = [];
+        this.canvasHandlers = null;
+
         // Vocabulario por niveles CON SÍLABAS CORRECTAS según gramática española
         this.vocabulary = {
             1: [
@@ -396,9 +400,66 @@ class LectoApp {
     }
 
     init() {
-        this.bindEvents();
+        this.autoScaleForSmartboard();
+        this.loadFontSettings();
         this.initCanvas();
-        window.addEventListener('resize', () => this.resizeCanvas());
+        this.bindEvents();
+
+        // OPTIMIZACIÓN: Debounced resize
+        const debouncedResize = this.debounce(() => {
+            this.autoScaleForSmartboard();
+            this.resizeCanvas();
+        }, 150);
+
+        window.addEventListener('resize', debouncedResize);
+        this.cleanupTasks.push(() => window.removeEventListener('resize', debouncedResize));
+    }
+
+    /**
+     * Debounce utility - Delays execution until after wait time has elapsed
+     */
+    debounce(fn, delay = 300) {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => fn.apply(this, args), delay);
+        };
+    }
+
+    /**
+     * Auto-scale para smartboards - Escala automáticamente el contenido
+     * para que encaje perfectamente en cualquier resolución de pantalla
+     */
+    autoScaleForSmartboard() {
+        const appElement = document.getElementById('app');
+        if (!appElement) return;
+
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+
+        // Resolución de diseño base (para la que está optimizado)
+        const baseHeight = 1080;
+        const baseWidth = 1920;
+
+        // Calcular el factor de escala necesario
+        const scaleY = viewportHeight / baseHeight;
+        const scaleX = viewportWidth / baseWidth;
+        const scale = Math.min(scaleY, scaleX, 1); // Nunca agrandar, solo reducir
+
+        // Aplicar escala si es necesario
+        if (scale < 0.98) { // Solo si necesita reducirse significativamente
+            appElement.style.transform = `scale(${scale})`;
+            appElement.style.transformOrigin = 'top left';
+            appElement.style.width = `${100 / scale}%`;
+            appElement.style.height = `${100 / scale}%`;
+
+            console.log(`⚙️ Auto-scale aplicado: ${(scale * 100).toFixed(1)}% (${viewportWidth}x${viewportHeight})`);
+        } else {
+            // Reset si la pantalla es suficientemente grande
+            appElement.style.transform = '';
+            appElement.style.width = '';
+            appElement.style.height = '';
+        }
     }
 
     bindEvents() {

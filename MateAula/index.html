@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Nexia: Mates - Pizarra Multiactividad</title>
     <link rel="stylesheet" href="css/styles.css?v=9.0">
     <link rel="stylesheet" href="css/responsive.css?v=1.0">
@@ -208,26 +208,27 @@
                             <button onclick="pressNum(8)" class="keypad-btn">8</button>
                             <button onclick="pressNum(9)" class="keypad-btn">9</button>
                         </div>
-                        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 8px; height: 50%;">
-                            <button onclick="backspace()" class="keypad-btn btn-backspace"
-                                style="flex: 1; max-width: 200px;">⌫ BORRAR</button>
-                            <button onclick="checkAnswerIA()" id="check-btn" class="keypad-btn btn-ok"
-                                style="flex: 1; max-width: 200px;">✓ COMPROBAR</button>
-                        </div>
-                        style="color:var(--success); font-weight:800; font-size:4rem;">=</button>
+                        <div id="symbol-keypad" class="hidden symbol-grid" style="gap:1.5rem;">
+                            <!-- LESS THAN: Blue -->
+                            <button onclick="checkComparison('<')" class="keypad-btn text-5xl" id="btn-lt"
+                                style="color:var(--primary); font-weight:800; font-size:4rem;">&lt;</button>
 
-                        <!-- GREATER THAN: Red + Crocodile -->
-                        <button onclick="checkComparison('>')"
-                            class="keypad-btn flex-col items-center justify-center p-0" id="btn-gt"
-                            style="color:var(--error); font-weight:800; line-height:1; gap:0;">
-                            <span style="font-size:4rem;">&gt;</span>
-                            <span style="font-size:2rem; margin-top:-10px;">🐊</span>
-                        </button>
+                            <!-- EQUAL: Green -->
+                            <button onclick="checkComparison('=')" class="keypad-btn text-5xl"
+                                style="color:var(--success); font-weight:800; font-size:4rem;">=</button>
+
+                            <!-- GREATER THAN: Red + Crocodile -->
+                            <button onclick="checkComparison('>')"
+                                class="keypad-btn flex-col items-center justify-center p-0" id="btn-gt"
+                                style="color:var(--error); font-weight:800; line-height:1; gap:0;">
+                                <span style="font-size:4rem;">&gt;</span>
+                                <span style="font-size:2rem; margin-top:-10px;">🐊</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- MODAL IA -->
