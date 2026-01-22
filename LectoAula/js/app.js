@@ -401,7 +401,7 @@ class LectoApp {
 
     init() {
         this.autoScaleForSmartboard();
-        this.loadFontSettings();
+        // loadFontSettings() removed - not defined and not needed for initial display
         this.initCanvas();
         this.bindEvents();
 
@@ -515,13 +515,18 @@ class LectoApp {
 
     reportToPortal(ok) {
         if (window.parent !== window) {
-            window.parent.postMessage({
-                type: 'UPDATE_SCORE_DETAILED',
-                app: 'lecto',
-                score: this.score,
-                activity: this.activityNames[this.gameMode] || this.gameMode,
-                ok: ok
-            }, '*');
+            try {
+                window.parent.postMessage({
+                    type: 'UPDATE_SCORE_DETAILED',
+                    app: 'lecto',
+                    score: this.score,
+                    activity: this.activityNames[this.gameMode] || this.gameMode,
+                    ok: ok
+                }, '*');
+            } catch (error) {
+                // Silently fail when using file:// protocol (expected behavior)
+                console.log('Portal communication unavailable (file:// protocol)');
+            }
         }
     }
 

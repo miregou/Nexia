@@ -120,28 +120,32 @@ class MathApp {
         const viewportHeight = window.innerHeight;
         const viewportWidth = window.innerWidth;
 
-        // Resolución de diseño base (para la que está optimizado)
+        // Resolución de diseño base
         const baseHeight = 1080;
         const baseWidth = 1920;
 
         // Calcular el factor de escala necesario
         const scaleY = viewportHeight / baseHeight;
         const scaleX = viewportWidth / baseWidth;
-        const scale = Math.min(scaleY, scaleX, 1); // Nunca agrandar, solo reducir
 
-        // Aplicar escala si es necesario
-        if (scale < 0.98) { // Solo si necesita reducirse significativamente
+        // Ajuste: Priorizamos que QUEPA VERTICALMENTE con un margen de seguridad
+        const safetyMargin = 0.97;
+        const scale = Math.min(scaleY, scaleX, 1) * safetyMargin;
+
+        // Aplicar escala si la pantalla es más pequeña que el diseño base o para asegurar el margen
+        if (scale < 0.99) {
             appElement.style.transform = `scale(${scale})`;
-            appElement.style.transformOrigin = 'top left';
+            appElement.style.transformOrigin = 'top center'; // Centrar horizontalmente al escalar
             appElement.style.width = `${100 / scale}%`;
             appElement.style.height = `${100 / scale}%`;
 
-            console.log(`⚙️ Auto-scale aplicado: ${(scale * 100).toFixed(1)}% (${viewportWidth}x${viewportHeight})`);
+            console.log(`⚙️ Auto-scale con margen: ${(scale * 100).toFixed(1)}% (${viewportWidth}x${viewportHeight})`);
         } else {
             // Reset si la pantalla es suficientemente grande
             appElement.style.transform = '';
             appElement.style.width = '';
             appElement.style.height = '';
+            appElement.style.transformOrigin = '';
         }
     }
 
