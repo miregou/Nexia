@@ -358,7 +358,7 @@ body {
 }
 
 .dice-number {
-    font-size: 2rem;
+    font-size: 7rem;
     font-weight: 800;
     color: var(--primary-dark);
 }
