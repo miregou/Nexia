@@ -212,7 +212,7 @@ class MathApp {
         this.elements.viewMenu.classList.remove('active');
         this.elements.viewGame.classList.add('active');
         // Ensure canvas is sized correctly now that it is visible
-        requestAnimationFrame(() => this.resizeCanvas());
+        setTimeout(() => this.resizeCanvas(), 100);
         this.setGameMode(mode);
     }
 
@@ -1176,26 +1176,53 @@ class MathApp {
         }
     }
 
-    startDrawing(e) {
-        try {
-            this.isDrawing = true;
-            const rect = this.elements.canvas.getBoundingClientRect();
-            // OPTIMIZACIÓN: Usar nullish coalescing para compatibilidad touch/mouse
-            this.lastX = (e.clientX ?? e.pageX) - rect.left;
-            this.lastY = (e.clientY ?? e.pageY) - rect.top;
-        } catch (error) {
-            console.error('Error starting drawing:', error);
-            this.stopDrawing();
+    /**
+     * Calcula las coordenadas exactas del evento, compensando escalado CSS
+     */
+    getCanvasCoordinates(e) {
+        const canvas = this.elements.canvas;
+        const rect = canvas.getBoundingClientRect();
+
+        // Factores de escala (Buffer vs Visual)
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        // Normalizar evento (Mouse vs Touch)
+        let clientX = e.clientX;
+        let clientY = e.clientY;
+
+        if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else if (e.changedTouches && e.changedTouches.length > 0) {
+            clientX = e.changedTouches[0].clientX;
+            clientY = e.changedTouches[0].clientY;
         }
+
+        // Si no hay coordenadas usar 0
+        if (clientX === undefined) clientX = 0;
+        if (clientY === undefined) clientY = 0;
+
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY
+        };
+    }
+
+    startDrawing(e) {
+        this.isDrawing = true;
+        const coords = this.getCanvasCoordinates(e);
+        this.lastX = coords.x;
+        this.lastY = coords.y;
     }
 
     draw(e) {
         if (!this.isDrawing) return;
 
         const ctx = this.elements.ctx;
-        const rect = this.elements.canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const coords = this.getCanvasCoordinates(e);
+        const x = coords.x;
+        const y = coords.y;
 
         ctx.beginPath();
         ctx.moveTo(this.lastX, this.lastY);
