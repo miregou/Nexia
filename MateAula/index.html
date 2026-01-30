@@ -180,11 +180,7 @@
                     <div id="instruction" class="instruction-pill instruction-neutral">...</div>
                     <div id="dice-section"></div>
                     <div id="exercise-container"></div>
-                    <div id="action-buttons">
-                        <button onclick="backspace()" class="btn-game-action btn-backspace">⌫ BORRAR</button>
-                        <button onclick="checkAnswerIA()" id="check-btn" class="btn-game-action btn-ok">✓
-                            COMPROBAR</button>
-                    </div>
+
                 </div>
 
                 <div id="right-panel" class="panel">
@@ -205,6 +201,11 @@
                             <button onclick="pressNum(7)" class="keypad-btn">7</button>
                             <button onclick="pressNum(8)" class="keypad-btn">8</button>
                             <button onclick="pressNum(9)" class="keypad-btn">9</button>
+                        </div>
+                        <div id="action-buttons">
+                            <button onclick="checkAnswerIA()" id="check-btn" class="btn-game-action btn-ok">✓
+                                COMPROBAR</button>
+                            <button onclick="backspace()" class="btn-game-action btn-backspace">⌫ BORRAR</button>
                         </div>
                         <div id="symbol-keypad" class="hidden symbol-grid" style="gap:1.5rem;">
                             <!-- LESS THAN: Blue -->

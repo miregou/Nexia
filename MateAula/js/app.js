@@ -1253,3 +1253,4 @@ class MathApp {
 
 
 const app = new MathApp();
+
